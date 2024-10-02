@@ -1,0 +1,9 @@
+.nav-container {
+  background-color: rgba(240, 248, 255, 0.142); 
+  cursor: pointer;
+}
+
+h1{
+    padding: 0;
+    margin: 0;
+}
