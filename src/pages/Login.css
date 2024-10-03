@@ -1,0 +1,17 @@
+.login-button{
+    background-color: aliceblue;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+}
+.login-button:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    scale: 1.05;
+}
+.login-button:active{
+    scale: 0.9;
+}

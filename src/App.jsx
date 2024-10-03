@@ -28,22 +28,6 @@ function App() {
       </Router>
       <ColorPalette />
 
-      {/* <div className="App">
-        <h1>Count is: {count}</h1>
-        <button
-          style={{ marginRight: "10px" }}
-          onClick={() => dispatch(increment())}
-        >
-          +
-        </button>
-        <button
-          style={{ marginLeft: "10px" }}
-          onClick={() => dispatch(decrement())}
-        >
-          -
-        </button>
-      </div> */}
-
       <ToastContainer />
     </>
   );
