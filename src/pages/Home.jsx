@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Spotlight } from "../components/ui/Spotlight.jsx";
-import {Talents} from "../components/Talents.jsx"
+import {TalentData} from "../pages/TalentData.jsx"
+import { ContainerScroll } from "@/components/ui/container-scroll-animation.jsx";
 
 const Home = (props) => {
   return (<>
@@ -29,7 +30,8 @@ See Talents        </button>
       </div>
       
     </div>
-    <Talents/>
+
+    <TalentData/>
   </>
   );
 };
