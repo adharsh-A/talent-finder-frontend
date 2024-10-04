@@ -11,6 +11,8 @@ const role = localStorage.getItem("role") || null;
 
 const initialState = {
   token: tokenFromStorage, // Persisted token
+  username: usernameFromStorage, // Persisted username
+  id: idFromStorage,
   user: null, // User info
   isAuthenticated: !!tokenFromStorage, // Check if authenticated
   role: role,
@@ -31,6 +33,10 @@ export const authSlice = createSlice({
 
       // Save token to localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("id", id);
+      localStorage.setItem("role", role);
+      
     },
     // Clear credentials on logout
     logout: (state) => {
@@ -41,7 +47,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
 
       // Remove token from localStorage
-      localStorage.removeItem("token");
+      localStorage.clear();
     },
   },
 });

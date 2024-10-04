@@ -2,12 +2,13 @@ import React from "react";
 import {NavLink } from "react-router-dom";
 import "./Navigation.css"
 import { useSelector } from "react-redux";
-import { IconH2 } from "@tabler/icons-react";
-
+import { logout } from "@/redux/authSlice";
+import { useDispatch } from "react-redux";
 const Navigation = (props) => {
+
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
+dispatch(logout());
   }
 const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
@@ -22,9 +23,9 @@ const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
         <h1 className="text-white mx-4" >Talents</h1>
         </NavLink>
 
-        <NavLink to="/auth" className="nav-link" activeClassName="active">
+        {isAuthenticated ? null : <NavLink to="/auth" className="nav-link" activeClassName="active">
         <h1 className="text-white mx-4" >Login/SignUp</h1>
-        </NavLink>
+        </NavLink>}
         {isAuthenticated && <h1 className="text-white mx-4 font-bold-semibold" onClick={handleLogout}>logout</h1>}
 
       </div>

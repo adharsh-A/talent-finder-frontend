@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
@@ -12,16 +12,13 @@ import "./Login.css";
 
 export function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isRegister, setIsRegister] = useState(true);
   const [userType, setUserType] = useState("talent");
 
-  const dispatch = useDispatch();
-  
-  // useLoginMutation and useRegisterMutation hooks
-  const [login] = useLoginMutation();
-  const [register] = useRegisterMutation();
+  const [login, { isLoading: isLoggingIn, isError: isLoginError, error: loginError }] = useLoginMutation();
+  const [register, { isLoading: isRegistering, isError: isRegisterError, error: registerError }] = useRegisterMutation();
 
-  // State to store all form inputs
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -29,17 +26,21 @@ export function Login() {
     username: "",
     password: "",
     repeatPassword: "",
-    userType: `${userType}`,
+    userType: "talent",
   });
 
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    setFormData(prevData => ({ ...prevData, userType }));
+  }, [userType]);
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prevData => ({
+      ...prevData,
       [id]: value,
-    });
+    }));
   };
 
   const validateForm = () => {
@@ -47,18 +48,17 @@ export function Login() {
     if (isRegister) {
       if (!formData.firstname) newErrors.firstname = "First name is required.";
       if (!formData.lastname) newErrors.lastname = "Last name is required.";
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        newErrors.email = "Email is invalid.";
+      }
+      if (formData.password !== formData.repeatPassword) {
+        newErrors.repeatPassword = "Passwords do not match.";
+      }
     }
-    if (!formData.email) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid.";
-    }
-    if (!formData.password) {
-      newErrors.password = "Password is required.";
-    }
-    if (isRegister && formData.password !== formData.repeatPassword) {
-      newErrors.repeatPassword = "Passwords do not match.";
-    }
+    if (!formData.username) newErrors.username = "Username is required.";
+    if (!formData.password) newErrors.password = "Password is required.";
     return newErrors;
   };
 
@@ -66,10 +66,10 @@ export function Login() {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      if (isRegister) {
-        // Call the register mutation
-        try {
-          const { data } = await register({
+      try {
+        let result;
+        if (isRegister) {
+          result = await register({
             firstname: formData.firstname,
             lastname: formData.lastname,
             email: formData.email,
@@ -77,34 +77,25 @@ export function Login() {
             password: formData.password,
             role: formData.userType,
           }).unwrap();
-          console.log("API response data:", data);
-
-
-          console.log("Registration successful:", data);
-          dispatch(setCredentials({ token: data.token, username: data.username,id: data.user.id,role: data.user.role }));
-          navigate("/talent-data");
-        } 
-        catch (err) {
-          toast.error("Invalid username or password");
-          console.error("registration failed:", err);
-        }
-      } else {
-        // Call the login mutation
-        try {
-          const senddata = {
+        } else {
+          result = await login({
             username: formData.username,
             password: formData.password,
-          }
-          const { data } = await login(senddata).unwrap();
-          console.log("API response data:", data);
-
-
-          dispatch(setCredentials({ token: data.token, username: data.username,id: data.user.id,role: data.user.role }))
-          navigate("/");
-        } catch (err) {
-          toast.error("Invalid username or password");
-          console.error("Login failed:", err);
+          }).unwrap();
         }
+
+        dispatch(setCredentials({
+          token: result.token,
+          username: result.username,
+          id: result.id,
+          role: result.role
+        }));
+        
+        toast.success(isRegister ? "Registration successful!" : "Login successful!");
+        navigate(isRegister ? "/talent-data" : "/");
+      } catch (err) {
+        console.error(isRegister ? "Registration failed:" : "Login failed:", err);
+        toast.error(err.data?.message || "An error occurred. Please try again.");
       }
     } else {
       setErrors(formErrors);
@@ -113,11 +104,12 @@ export function Login() {
 
   const toggleAuthForm = () => {
     setIsRegister(!isRegister);
+    setErrors({});
   };
 
   return (
     <>
-    <div className="mt-28 max-w-2xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-gray-100 dark:bg-zinc-900 bg/[0.96]">
+   <div className="mt-28 max-w-2xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-gray-100 dark:bg-zinc-900 bg/[0.96]">
       <h2 className="font-bold text-xl text-white dark:text-neutral-200">
         {isRegister ? "Register" : "Login"}
       </h2>
@@ -241,17 +233,17 @@ export function Login() {
           </>
         )}
 
-        <button
+<button
           className="login-button"
           type="submit"
+          disabled={isLoggingIn || isRegistering}
         >
-          {isRegister ? "Sign up" : "Log in"} &rarr;
+          {isLoggingIn || isRegistering ? "Processing..." : (isRegister ? "Sign up" : "Log in")} &rarr;
         </button>
-        {isError && <p>Error: {error?.data?.message || 'Login failed'}</p>}
-        {isSuccess && <p>Login successful!</p>}
-        
-
- </form>
+        {(isLoginError || isRegisterError) && (
+          <p className="text-red-500">{loginError?.data?.message || registerError?.data?.message || "An error occurred"}</p>
+        )}
+      </form>
 
       <p className="mt-10 text-xs text-neutral-400">
         By clicking Sign up, you agree to our Terms of Service and Privacy Policy.

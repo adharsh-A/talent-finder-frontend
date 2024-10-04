@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Spotlight } from "../components/ui/Spotlight.jsx";
 import {TalentData} from "../pages/TalentData.jsx"
-import { ContainerScroll } from "@/components/ui/container-scroll-animation.jsx";
+import { VelocityScroll } from "../components/ui/scroll-based-velocity.jsx";
 
 const Home = (props) => {
   return (<>
+
     <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
@@ -32,6 +33,11 @@ See Talents        </button>
     </div>
 
     <TalentData/>
+    <VelocityScroll
+      text="Find the Perfect Match"
+      default_velocity={1}
+      className=" font-display text-center text-5xl font-bold tracking-[-0.02em] text-black drop-shadow-sm dark:text-white md:text-7xl md:leading-[5rem]"
+    />
   </>
   );
 };

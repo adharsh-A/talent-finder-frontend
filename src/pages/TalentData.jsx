@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { World } from "../components/ui/globe"; // Use normal import in React
 import {Talents} from "../components/Talents"
+import TextReveal from "../components/ui/text-reveal";
+
 
 export function TalentData() {
   const globeConfig = {
@@ -413,6 +415,8 @@ export function TalentData() {
           <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
             Empowering Connections, Elevating Success.{" "}
           </h2>
+      
+
           <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
             Bringing clients and top talent together effortlessly for growth and
             success.

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { increment, decrement } from "./redux/counterSlice.js";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home.jsx";
 import {Login} from "./pages/Login.jsx";
 import Navigation from "./components/Navigation.jsx";
