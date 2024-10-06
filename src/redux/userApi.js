@@ -22,6 +22,12 @@ export const userApi = createApi({
         method: "DELETE",
       }),
     }),
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "users",
+        method: "GET",
+      }),
+    })
   }),
 });
 

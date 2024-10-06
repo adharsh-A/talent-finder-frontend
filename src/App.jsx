@@ -11,6 +11,7 @@ import ColorPalette from "./components/Color.jsx";
 import { UserDetailsForm } from "./pages/UserDetails.jsx";
 import {TalentData} from "./pages/TalentData.jsx"
 
+
 function App() {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();

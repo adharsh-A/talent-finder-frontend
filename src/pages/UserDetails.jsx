@@ -75,7 +75,9 @@ console.log('Update response:', response);
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="skills">Skills</Label>
+        <Label htmlFor="skills">
+  Skills <sup>(separate with commas)</sup>
+</Label>
           <Input
             id="skills"
             placeholder="e.g., React, Node.js, Python"
