@@ -2,7 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { World } from "../components/ui/globe"; // Use normal import in React
 import {Talents} from "../components/Talents"
-import TextReveal from "../components/ui/text-reveal";
+import {TextRevealDemo} from "../components/Text";
+import Footer from "@/components/Footer";
 
 
 export function TalentData() {

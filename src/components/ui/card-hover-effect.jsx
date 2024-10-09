@@ -13,8 +13,8 @@ export const HoverEffect = ({ items, className }) => {
       )}
     >
       {items.map((item, idx) => (
-       <Link to={`${item?.link}`}
-          key={item?.link}
+       <Link to={`${item?.id}`}
+          key={item?.id}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -38,11 +38,12 @@ export const HoverEffect = ({ items, className }) => {
           </AnimatePresence>
           <Card>
             <CardTitle>{item.name}</CardTitle>
-            <CardDescription style={{ marginBottom: "8px" }}>{item.occupation}</CardDescription>
-            <CardDescription style={{ marginBottom: "8px" }}>{item.experience}</CardDescription>
-            <CardDescription style={{ marginBottom: "8px" }}>{item.info}</CardDescription>
+            <p className="text-zinc-400 font-small">{item.username}</p>
+            <CardDescription style={{ marginBottom: "8px" }}>{item.data.occupation}</CardDescription>
+            <CardDescription style={{ marginBottom: "8px" }}>{item.data.experience}</CardDescription>
+            <CardDescription style={{ marginBottom: "8px" }}>{item.data.addionalInfo}</CardDescription>
             <CardDescription>
-              {item.skills.map((skill, index) => (
+              {item.data.skills.map((skill, index) => (
                 <span
                   key={index}
                   style={{

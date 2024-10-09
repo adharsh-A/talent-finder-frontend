@@ -23,8 +23,8 @@ export const userApi = createApi({
       }),
     }),
     getAllUsers: builder.query({
-      query: () => ({
-        url: "users",
+      query: ({page, limit}) => ({
+        url: `users?page=${page}&limit=${limit}`,
         method: "GET",
       }),
     })
@@ -35,4 +35,6 @@ export const {
   useGetUserQuery,
   useUpdateUserProfileMutation,
   useDeleteUserMutation,
+  useGetAllUsersQuery,
 } = userApi;
+

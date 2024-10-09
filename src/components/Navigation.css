@@ -8,6 +8,65 @@ h1{
     margin: 0;
 }
 /* Keyframes animation for scaling */
+/* Sidebar.css */
+.sidebar-content {
+  width: 300px; /* Adjust the width of the drawer */
+  padding: 20px;
+  background-color: #353535b4; /* Dark background */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #fff; /* White text for dark mode */
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+}
+
+.divider {
+  background-color: #555; /* Darker divider */
+}
+
+.MuiListItem-root {
+  padding: 15px;
+  font-size: 1.1em;
+}
+
+.MuiListItemIcon-root {
+  min-width: 40px;
+}
+
+.icon {
+  color: #fff; /* White icons */
+  cursor: pointer;
+}
+
+.list-text {
+  cursor: pointer;
+  color: #fff; /* White text for list items */
+}
+
+.custom-drawer .MuiPaper-root {
+  background-color: #1f1f1f !important; /* Ensures dark mode background for the drawer */
+}
+
 
 
 /* Active state for nav-link */

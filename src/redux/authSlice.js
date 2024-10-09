@@ -6,6 +6,8 @@ const tokenFromStorage = localStorage.getItem("token") || null;
 const usernameFromStorage = localStorage.getItem("username") || null;
 const idFromStorage = localStorage.getItem("id") || null;
 const role = localStorage.getItem("role") || null;
+const loginTimeFromStorage = localStorage.getItem("loginTime") || null;
+
 
 // Define initial state
 
@@ -16,6 +18,8 @@ const initialState = {
   user: null, // User info
   isAuthenticated: !!tokenFromStorage, // Check if authenticated
   role: role,
+  loginTime: loginTimeFromStorage, // Persisted login time
+
 };
 
 export const authSlice = createSlice({
@@ -31,11 +35,16 @@ export const authSlice = createSlice({
       state.role=role
       state.isAuthenticated = true;
 
+      const loginTime = new Date().getTime();
+      state.loginTime = loginTime;
+
       // Save token to localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("username", username);
       localStorage.setItem("id", id);
       localStorage.setItem("role", role);
+      localStorage.setItem("loginTime", loginTime);
+
       
     },
     // Clear credentials on logout

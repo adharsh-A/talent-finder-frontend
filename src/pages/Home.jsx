@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Spotlight } from "../components/ui/Spotlight.jsx";
 import {TalentData} from "../pages/TalentData.jsx"
 import { VelocityScroll } from "../components/ui/scroll-based-velocity.jsx";
+import { TextRevealDemo } from "@/components/Text.jsx";
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import { useSelector } from "react-redux";
 
 const Home = (props) => {
+  const isAuthenticated=useSelector((state)=>state.auth.isAuthenticated)
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState)
+}
   return (<>
 
     <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
@@ -19,18 +27,22 @@ const Home = (props) => {
         Talent Finder is a user-friendly platform that connects skilled professionals with clients. The responsive frontend enables easy sign-up, login, profile management, and talent search based on skills, location, and experience across any device.        </p>
         <div className="flex flex-col justify-center items-center mt-4 md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
           <Link to="talents">
-        <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
-See Talents        </button>
+          <button className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+          See Talents
+        </span>
+      </button>
           </Link>
+
         <Link to="/auth">
-        <button  className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
-          Signup
-        </button>
+       {!isAuthenticated&&<RainbowButton>Sign Up</RainbowButton>}
         </Link>
       </div>
       </div>
       
     </div>
+    <TextRevealDemo text="Connecting Talent with Opportunity, Seamlessly.🎉"/>
 
     <TalentData/>
     <VelocityScroll
@@ -38,6 +50,8 @@ See Talents        </button>
       default_velocity={1}
       className=" font-display text-center text-5xl font-bold tracking-[-0.02em] text-black drop-shadow-sm dark:text-white md:text-7xl md:leading-[5rem]"
     />
+
+    {/* <Footer /> */}
   </>
   );
 };

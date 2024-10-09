@@ -1,34 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HoverEffect } from "../components/ui/card-hover-effect";
 import "./talents.css";
+import { useGetAllUsersQuery } from "@/redux/userApi";
+import { Button } from "../components/ui/button";
 
 export function Talents() {
+  const handleClear = () => {
+    setExperience("");
+    setSelectedOccupation("");
+    setSkill("");
+    setName("");
+    setFilteredProjects(projects);
+  };
+
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [projectsPerPage] = useState(3); // You can adjust the number of items per page
+
+
   // State for the filters
-  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const { data, isLoading } = useGetAllUsersQuery({ page: currentPage, limit: projectsPerPage });
+  const projects = data?.users || [];
+  console.log(projects);
+  const totalPages = data?.totalPages || 1;
+
+
+
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [experience, setExperience] = useState("");
   const [selectedOccupation, setSelectedOccupation] = useState("");
   const [skill, setSkill] = useState("");
   const [name, setName] = useState("");
+
+
+  // Sync filteredProjects whenever the API data (projects) change
+  useEffect(() => {
+    setFilteredProjects(projects);
+  }, [projects]);
 
   // Filtering function
   const applyFilters = () => {
     let updatedProjects = projects;
 
     if (experience) {
-      updatedProjects = updatedProjects.filter(
-        (project) => project.experience.includes(experience)
+      updatedProjects = updatedProjects.filter((project) =>
+        project.data.experience.includes(experience)
       );
     }
 
     if (selectedOccupation) {
       updatedProjects = updatedProjects.filter(
-        (project) => project.occupation.toLowerCase() === selectedOccupation.toLowerCase()
+        (project) =>
+          project.data.occupation.toLowerCase() ===
+          selectedOccupation.toLowerCase()
       );
     }
 
     if (skill) {
       updatedProjects = updatedProjects.filter((project) =>
-        project.skills.includes(skill)
+        project.data.skills.includes(skill)
       );
     }
 
@@ -39,6 +70,24 @@ export function Talents() {
     }
 
     setFilteredProjects(updatedProjects);
+    setCurrentPage(1); // Reset to the first page after applying filters
+  };
+
+  // Logic for pagination
+
+
+  // const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   return (
@@ -101,18 +150,46 @@ export function Talents() {
             />
           </div>
 
-          <button
-            className="bg-blue-500 text-white w-full p-2 mt-4 rounded-lg"
-            onClick={applyFilters}
+          <Button
+            variant="secondary"
+            className="bg-red-500 mx-4 text-white"
+            onClick={handleClear}
           >
-            Apply Filters
-          </button>
+            Clear
+          </Button>
+          <Button variant="outline" onClick={applyFilters}>
+            Apply
+          </Button>
         </div>
 
         {/* Main Content - HoverEffect */}
-        <div className="w-4/5 p-4">
-        <h2 className="font-bold text-4xl mb-4 ">Talents</h2>
+      <div className="w-4/5 p-4">
+          <h2 className="font-bold text-4xl mb-4">Talents</h2>
           <HoverEffect items={filteredProjects} />
+
+          {/* Pagination Controls */}
+          <div className="pagination">
+            <Button
+            className=" mx-4 text-white"
+            variant="outline"
+              onClick={prevPage}
+              disabled={currentPage === 1}
+            >
+             &larr; Previous
+            </Button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button
+                        className=" mx-4 text-white"
+
+            variant="outline"
+              onClick={nextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next &rarr;
+            </Button>
+          </div>
         </div>
       </div>
     </>
@@ -141,56 +218,4 @@ export const occupations = [
   "Architect", "Interior Designer", "Urban Planner", "Construction Manager", "Surveyor",
   "Real Estate Agent", "Property Manager", "Retail Manager", "Store Manager", "Fashion Designer",
   "Chef", "Hotel Manager", "Travel Agent", "Tour Guide", "Event Manager"
-];
-
-export const projects = [
-  {
-    name: "John Doe",
-    occupation: "Professional Developer",
-    experience: "1 year",
-    skills: ["HTML", "CSS", "JavaScript"],
-    info: "Info here",
-    link: "talents"
-  },
-  {
-    name: "Jane Smith",
-    occupation: "UI/UX Designer",
-    experience: "3 years",
-    skills: ["Figma", "Sketch", "Adobe XD"],
-    info: "Info here",
-    link: "talents"
-  },
-  {
-    name: "John Doe",
-    occupation: "Professional Developer",
-    experience: "1 year",
-    skills: ["HTML", "CSS", "JavaScript"],
-    info: "Info here",
-    link: "talents"
-  },
-  {
-    name: "Jane Smith",
-    occupation: "UI/UX Designer",
-    experience: "3 years",
-    skills: ["Figma", "Sketch", "Adobe XD"],
-    info: "Info here",
-    link: "talents"
-  },
-  {
-    name: "John Doe",
-    occupation: "Professional Developer",
-    experience: "1 year",
-    skills: ["HTML", "CSS", "JavaScript"],
-    info: "Info here",
-    link: "talents"
-  },
-  {
-    name: "Jane Smith",
-    occupation: "UI/UX Designer",
-    experience: "3 years",
-    skills: ["Figma", "Sketch", "Adobe XD"],
-    info: "Info here",
-    link: "talents"
-  },
-  // Add more project items as needed
 ];

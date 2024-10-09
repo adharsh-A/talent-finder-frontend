@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useUpdateUserProfileMutation } from "@/redux/userApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Footer from "@/components/Footer";
 
 export function UserDetailsForm() {
   const [
