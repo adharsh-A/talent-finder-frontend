@@ -3,6 +3,7 @@ import { HoverEffect } from "../components/ui/card-hover-effect";
 import "./talents.css";
 import { useGetAllUsersQuery } from "@/redux/userApi";
 import { Button } from "../components/ui/button";
+import axios from "axios";
 
 export function Talents() {
   const handleClear = () => {
@@ -22,7 +23,6 @@ export function Talents() {
   // State for the filters
   const { data, isLoading } = useGetAllUsersQuery({ page: currentPage, limit: projectsPerPage });
   const projects = data?.users || [];
-  console.log(projects);
   const totalPages = data?.totalPages || 1;
 
 
@@ -40,38 +40,22 @@ export function Talents() {
   }, [projects]);
 
   // Filtering function
-  const applyFilters = () => {
-    let updatedProjects = projects;
-
-    if (experience) {
-      updatedProjects = updatedProjects.filter((project) =>
-        project.data.experience.includes(experience)
-      );
+  const applyFilters = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/client/search-data', {
+        name: name || '',          // User name search input
+        occupation: selectedOccupation || '', // Occupation search input
+        skills: skill || '',          // Skills search input
+        experience: experience || ''  // Experience search input
+      });
+      
+      setFilteredProjects(response.data); // Assuming you're setting the filtered data to state
+      setCurrentPage(1); // Reset to the first page after applying filters
+    } catch (error) {
+      console.error('Error fetching filtered users', error);
     }
-
-    if (selectedOccupation) {
-      updatedProjects = updatedProjects.filter(
-        (project) =>
-          project.data.occupation.toLowerCase() ===
-          selectedOccupation.toLowerCase()
-      );
-    }
-
-    if (skill) {
-      updatedProjects = updatedProjects.filter((project) =>
-        project.data.skills.includes(skill)
-      );
-    }
-
-    if (name) {
-      updatedProjects = updatedProjects.filter((project) =>
-        project.name.toLowerCase().includes(name.toLowerCase())
-      );
-    }
-
-    setFilteredProjects(updatedProjects);
-    setCurrentPage(1); // Reset to the first page after applying filters
   };
+  
 
   // Logic for pagination
 

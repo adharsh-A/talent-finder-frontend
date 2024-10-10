@@ -1,0 +1,35 @@
+.marquee-wrapper {
+  overflow: hidden; /* Hides the overflow of the scrolling content */
+  width: 100%;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+  display: flex;
+  gap: 20px; /* Adds space between cards */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.card {
+  width: 150px;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  white-space: normal;
+}

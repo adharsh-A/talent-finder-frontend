@@ -6,6 +6,7 @@ import { VelocityScroll } from "../components/ui/scroll-based-velocity.jsx";
 import { TextRevealDemo } from "@/components/Text.jsx";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { useSelector } from "react-redux";
+import MarqueeCards from "@/components/MarqueeCards.jsx";
 
 const Home = (props) => {
   const isAuthenticated=useSelector((state)=>state.auth.isAuthenticated)
@@ -45,6 +46,7 @@ const Home = (props) => {
     <TextRevealDemo text="Connecting Talent with Opportunity, Seamlessly.🎉"/>
 
     <TalentData/>
+    {/* <MarqueeCards/> */}
     <VelocityScroll
       text="Find the Perfect Match"
       default_velocity={1}

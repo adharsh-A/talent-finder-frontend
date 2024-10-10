@@ -8,18 +8,15 @@ const idFromStorage = localStorage.getItem("id") || null;
 const role = localStorage.getItem("role") || null;
 const loginTimeFromStorage = localStorage.getItem("loginTime") || null;
 
-
 // Define initial state
 
 const initialState = {
   token: tokenFromStorage, // Persisted token
   username: usernameFromStorage, // Persisted username
   id: idFromStorage,
-  user: null, // User info
   isAuthenticated: !!tokenFromStorage, // Check if authenticated
   role: role,
   loginTime: loginTimeFromStorage, // Persisted login time
-
 };
 
 export const authSlice = createSlice({
