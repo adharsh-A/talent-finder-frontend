@@ -1,12 +1,18 @@
-import React from "react"
-import "./Loader.css"
+import React from "react";
+import "./Loader.css";
 
-const Loader = (props) => {
+const Loader = ({ width, height }) => {
   return (
-    <div className="min-h-screen w-full flex justify-center items-center">
-
-<span class="loader"></span>    </div>
-  )
+    <div
+      className="flex justify-center items-center"
+      style={{
+        width: `${width}px`, 
+        height: height ? `${height}px` : "100vh", // Full height if no height prop
+      }}
+    >
+      <span className="loader"></span>
+    </div>
+  );
 };
 
 export default Loader;

@@ -8,12 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { occupations } from "./UserDetails";
 import { BorderBeam } from "@/components/ui/border-beam";
-import { useUpdateUserProfileMutation } from "@/redux/userApi";
+import {useUpdateProfileMutation} from "@/redux/userApi";
 import Loader from "@/components/ui/Loader";
+import { toast } from "react-toastify";
 
 const MyProfile = (props) => {
-  const [updateUserProfile, { isLoading: isUpdating }] = useUpdateUserProfileMutation();
-
+  const [updateProfile, { isLoading:isUpdating }] = useUpdateProfileMutation();
   const id = useSelector((state) => state.auth.id);
   const { data, isLoading } = useGetUserQuery(id);
   let skillsString;
@@ -31,10 +31,12 @@ useEffect(() => {
     experience: "",
     additionalInfo: "",
     portfolio: "",
+    userId: Number(id),
   });
   useEffect(() => {
     if (data) {
-      setFormData({
+      setFormData((prevData)=>({
+      ...prevData,
         name: data.name || "",
         username: data.username || "",
         skills: skillsString || "",
@@ -42,7 +44,8 @@ useEffect(() => {
         experience: data.data.experience || "",
         additionalInfo: data.data.additionalInfo || "",
         portfolio: data.data.portfolio || "",
-      });
+      })
+    );
     }
   }, [data]);
 
@@ -59,16 +62,18 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updateProfile = await updateUserProfile(formData).unwrap(); // Call unwrap()
-      console.log(updateProfile);  // Assuming you want to log the updated profile
+      const response = await updateProfile(formData).unwrap();
+      console.log("Update response:", response);
+      toast.success("Profile updated successfully");
     } catch (error) {
+      toast.error("Error updating profile:", error);
       console.error("Error updating profile:", error);  // Error handling
     }
   };  
 
   return (
     <div>
-      {isLoading ? <Loader/> : (
+      {isLoading||isUpdating ? <Loader/> : (
       <div className="min-h-screen flex justify-center items-center">
         <div className="overflow-hidden relative  z-10 bg-zinc-900/[0.7]  w-full mt-[6rem] py-8 px-12 rounded-2xl lg:w-3/4 h-fit md:w-1/4">
               <BorderBeam size={200} duration={8} delay={1} />
@@ -109,14 +114,19 @@ useEffect(() => {
               onChange={handleChange}
               placeholder="Enter your skills"
             />
-            <Label htmlFor="occupation">Occupation</Label>
-            <Input
-              label="Occupation"
-              id="occupation"
-              value={formData.occupation}
-              onChange={handleChange}
-              placeholder="Enter your occupation"
-            />
+          <Label htmlFor="occupation">Occupation</Label>
+          <Input
+            id="occupation"
+            list="occupations"
+            type="text"
+            value={formData.occupation}
+            onChange={handleChange}
+          />
+          <datalist id="occupations">
+            {occupations.map((occupation, index) => (
+              <option value={occupation} key={index} />
+            ))}
+          </datalist>
             <Label htmlFor="experience">Experience</Label>
             <Input
               label="Experience"

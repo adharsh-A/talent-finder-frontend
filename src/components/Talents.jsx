@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { HoverEffect } from "../components/ui/card-hover-effect";
 import "./talents.css";
-import { useGetAllUsersQuery } from "@/redux/userApi";
+import { useGetAllUsersQuery ,useSearchByDataMutation} from "@/redux/userApi";
 import { Button } from "../components/ui/button";
 import axios from "axios";
+import Loader from "./ui/Loader";
+import { toast } from "react-toastify";
 
-export function Talents() {
+export function Talents () {
+  const [loader,setLoader]=useState(false);
   const handleClear = () => {
     setExperience("");
     setSelectedOccupation("");
@@ -22,9 +25,18 @@ export function Talents() {
 
   // State for the filters
   const { data, isLoading } = useGetAllUsersQuery({ page: currentPage, limit: projectsPerPage });
+  if(data){
+    console.log(data);
+  }
   const projects = data?.users || [];
   const totalPages = data?.totalPages || 1;
+  useEffect(() => {
+    if (data) {
+    setFilteredProjects(projects);
+    }
+  }, [data]);
 
+  
 
 
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -35,23 +47,32 @@ export function Talents() {
 
 
   // Sync filteredProjects whenever the API data (projects) change
-  useEffect(() => {
-    setFilteredProjects(projects);
-  }, [projects]);
 
   // Filtering function
   const applyFilters = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/client/search-data', {
-        name: name || '',          // User name search input
-        occupation: selectedOccupation || '', // Occupation search input
-        skills: skill || '',          // Skills search input
-        experience: experience || ''  // Experience search input
+      setLoader(true);
+      const link=import.meta.env.VITE_BACKEND
+      const data = await axios.post(`http://localhost:8080/api/client/search-data`, {
+        experience: experience,
+        occupation: selectedOccupation,
+        skill: skill,
+        name: name,
+        limit: projectsPerPage, // Replace with your desired limit
+        currentPage: Number(currentPage), // Add currentPage if you want to control pagination
       });
-      
-      setFilteredProjects(response.data); // Assuming you're setting the filtered data to state
-      setCurrentPage(1); // Reset to the first page after applying filters
+      const response=data.data
+      console.log(data);
+       if(data){
+         setFilteredProjects(response.users);
+         setLoader(false);
+       }      
+       setCurrentPage(response.currentPage); // Reset to the first page after applying filters
     } catch (error) {
+      setLoader(false);
+      toast.error('Error fetching filtered users', {
+        position: "bottom-right",
+      })
       console.error('Error fetching filtered users', error);
     }
   };
@@ -149,8 +170,7 @@ export function Talents() {
         {/* Main Content - HoverEffect */}
       <div className="w-4/5 p-4">
           <h2 className="font-bold text-4xl mb-4">Talents</h2>
-          <HoverEffect items={filteredProjects} />
-
+          {loader?(<Loader width="500" height="280" />):(<HoverEffect items={filteredProjects} />)}
           {/* Pagination Controls */}
           <div className="pagination">
             <Button

@@ -3,7 +3,7 @@ import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
 
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `http://localhost:8080/api/` }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getUser: builder.query({
@@ -12,6 +12,13 @@ export const userApi = createApi({
     updateUserProfile: builder.mutation({
       query: (data) => ({
         url: `users/update-talent/${data.userId}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: `users/update-profile/${data.userId}`,
         method: "PUT",
         body: data,
       }),
@@ -27,6 +34,13 @@ export const userApi = createApi({
         url: `users?page=${page}&limit=${limit}`,
         method: "GET",
       }),
+      searchByData: builder.mutation({
+        query: (searchParams) => ({
+          url: 'users/search-data',
+          method: 'POST',
+          body: searchParams,
+        }),
+      })
     })
   }),
 });
@@ -36,5 +50,7 @@ export const {
   useUpdateUserProfileMutation,
   useDeleteUserMutation,
   useGetAllUsersQuery,
+  useSearchByDataMutation,
+  useUpdateProfileMutation,
 } = userApi;
 
