@@ -9,7 +9,7 @@ import { setCredentials } from "@/redux/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "./Login.css";
-import Footer from "@/components/Footer";
+import { occupations } from "./UserDetails";
 
 export function Login() {
   const navigate = useNavigate();
@@ -105,7 +105,11 @@ export function Login() {
         );
 
         toast.success(`Hello ${formData.username}!!`);
-        navigate(isRegister ? "/talent-data" : "/");
+        if (result.role === "talent") {
+          navigate(isRegister ? "/talent-data" : "/");
+        } else {
+          navigate(isRegister ? "/client-data" : "/");
+        }
       } catch (err) {
         console.error(
           isRegister ? "Registration failed:" : "Login failed:",
@@ -121,9 +125,11 @@ export function Login() {
   };
 
   const toggleAuthForm = () => {
-    setIsRegister(!isRegister);
+    setIsRegister((prev) => !prev);
+    console.log(isRegister); // Log the value of isRegister after state change
     setErrors({});
   };
+  
 
   return (
     <>
@@ -168,7 +174,7 @@ export function Login() {
                   value={formData.lastname}
                   onChange={handleInputChange}
                   className={errors.lastname && "border-red-500"}
-                />
+                  />
                 {errors.lastname && (
                   <p className="text-red-500">{errors.lastname}</p>
                 )}
@@ -322,7 +328,6 @@ export function Login() {
         </div>
       </div>
 
-      <Footer />
     </>
   );
 }

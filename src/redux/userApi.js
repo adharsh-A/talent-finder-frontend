@@ -8,14 +8,14 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUser: builder.query({
       query: (id) => `users/${id}`,
-    }),
+    }),//foe only data object
     updateUserProfile: builder.mutation({
       query: (data) => ({
         url: `users/update-talent/${data.userId}`,
         method: "PUT",
         body: data,
       }),
-    }),
+    }),//for whole profile
     updateProfile: builder.mutation({
       query: (data) => ({
         url: `users/update-profile/${data.userId}`,

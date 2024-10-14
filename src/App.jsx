@@ -5,10 +5,12 @@ import Home from "./pages/Home.jsx";
 import {Login} from "./pages/Login.jsx";
 import Navigation from "./components/Navigation.jsx";
 import { UserDetailsForm } from "./pages/UserDetails.jsx";
+import { ClientDetailsForm } from "./pages/ClientDetails.jsx";
 import {TalentData} from "./pages/TalentData.jsx"
 import ProfileView from "./pages/ProfileView.jsx";
 import Footer from "./components/Footer.jsx";
 import MyProfile from "./pages/MyProfile.jsx";
+import ClientProfile from "./pages/ClientProfile.jsx";
 import { useDispatch } from "react-redux";
 import { logout } from "./redux/authSlice.js";
 import { useEffect } from "react";
@@ -27,8 +29,10 @@ function App() {
           <Route path="/:id" element={<ProfileView />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/talent-data" element={<UserDetailsForm />} />
+          <Route path="/client-data" element={<ClientDetailsForm />} />
           <Route path="/talents" element={<TalentData/>} />
           <Route path="/me" element={<MyProfile />} />
+          <Route path="/profile" element={<ClientProfile />} />
         </Routes>
       </Router>
       <Footer />

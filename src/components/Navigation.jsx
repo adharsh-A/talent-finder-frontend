@@ -21,12 +21,15 @@ import { AccountCircle, Settings, ExitToApp, Notifications } from '@mui/icons-ma
 import Avatar from '@mui/material/Avatar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import 'react-modern-drawer/dist/index.css'
-import {useDeleteUserMutation} from '../redux/userApi'
+import {useDeleteUserMutation} from '../redux/userApi';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const Navigation = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const username = useSelector((state) => state.auth.username);
-  const id= useSelector((state) => state.auth.id);
+  const id = useSelector((state) => state.auth.id);
+  const role = useSelector((state) => state.auth.role);
 
 
   const [deleteUser] = useDeleteUserMutation();
@@ -42,7 +45,8 @@ const Navigation = () => {
 
 
   const moveToProfile = () => {
-    navigate("/me");
+
+    navigate(role === "talent" ? "/me" : "/profile");
     toggleDrawer();
   }
   const handleLogout = () => {
@@ -70,23 +74,23 @@ try{
       <div className="z-10 absolute flex w-full justify-center inset-x-0 top-5">
         <div className="flex rounded-full p-5 w-fit nav-container">
           <NavLink to="/" className="nav-link" activeClassName="active">
-            <h1 className="text-white mx-4">Home</h1>
+            <h1 className="text-white mx-2 cursor-pointer font-weight-100">Home</h1>
           </NavLink>
 
           <NavLink to="/talents" className="nav-link" activeClassName="active">
-            <h1 className="text-white mx-4">Talents</h1>
+            <h1 className="text-white mx-2 cursor-pointer font-weight-100">Talents</h1>
           </NavLink>
 
           {!isAuthenticated && (
             <NavLink to="/auth" className="nav-link" activeClassName="active">
-              <h1 className="text-white mx-4">Login/SignUp</h1>
+              <h1 className="text-white mx-2 cursor-pointer font-weight-100">Login/SignUp</h1>
             </NavLink>
           )}
 
           {isAuthenticated && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <h1 className="text-white mx-2 cursor-pointer font-bold"> Logout</h1>
+                <h1 className="text-white mx-2 cursor-pointer font-weight-100"> Logout</h1>
               </AlertDialogTrigger>
               <AlertDialogContent  className="bg-slate-900">
                 <AlertDialogHeader>
@@ -104,7 +108,7 @@ try{
             </AlertDialog>
           )}
                     {isAuthenticated && (
-              <h1 className="text-white mx-2 cursor-pointer font-bold" onClick={toggleDrawer}><h1></h1>Profile</h1>
+              <h1 className="text-white mx-2 cursor-pointer  font-weight-100" onClick={toggleDrawer}>Menu</h1>
           )}
     <Drawer
       anchor="right"
@@ -115,7 +119,7 @@ try{
       <div className="sidebar-content">
         {/* User Profile Section */}
         <div className="profile-section">
-          <Avatar alt="User Profile" src="/path/to/profile-picture.jpg" className="avatar" />
+          <Avatar alt="User Profile" src="https://tabler.io/_next/image?url=%2Favatars%2Fdefault%2F78529e2ec8eb4a2eb2fb961e04915b0a.png&w=400&q=75" className="avatar" />
           <h3 className="username">{username}</h3>
         </div>
 
@@ -123,27 +127,35 @@ try{
 
         {/* Menu List */}
         <List>
+         {/*  profile */}
           <ListItem button onClick={moveToProfile}>
             <ListItemIcon>
               <AccountCircle className="icon" />
             </ListItemIcon>
             <ListItemText primary="Profile" className="list-text" />
           </ListItem>
-
+              {/* applications */}
+          <ListItem button onClick={moveToProfile}>
+            <ListItemIcon>
+              <PermContactCalendarIcon className="icon" />
+            </ListItemIcon>
+            <ListItemText primary="Applications" className="list-text" />
+          </ListItem>
+              {/* notifications */}
           <ListItem button onClick={toggleDrawer}>
             <ListItemIcon>
               <Notifications className="icon" />
             </ListItemIcon>
             <ListItemText primary="Notifications" className="list-text" />
           </ListItem>
-
+        {/* settings */}
           <ListItem button onClick={toggleDrawer}>
             <ListItemIcon>
-              <Settings className="icon" />
-            </ListItemIcon>
+              <ManageAccountsIcon className="icon" />
+              </ListItemIcon>
             <ListItemText primary="Settings" className="list-text" />
           </ListItem>
-
+              {/* delete account */}
           <ListItem button onClick={handleDelete}>
             <ListItemIcon>
               <DeleteForeverIcon className="icon" />
@@ -152,6 +164,7 @@ try{
           </ListItem>
 
 
+          {/* logout */}
           <ListItem button onClick={() => {handleLogout()
             toggleDrawer()
           }}>

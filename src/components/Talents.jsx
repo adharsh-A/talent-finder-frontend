@@ -29,7 +29,7 @@ export function Talents () {
     console.log(data);
   }
   const projects = data?.users || [];
-  const totalPages = data?.totalPages || 1;
+  let totalPages = data?.totalPages || 1;
   useEffect(() => {
     if (data) {
     setFilteredProjects(projects);
@@ -67,7 +67,8 @@ export function Talents () {
          setFilteredProjects(response.users);
          setLoader(false);
        }      
-       setCurrentPage(response.currentPage); // Reset to the first page after applying filters
+      setCurrentPage(response.currentPage); // Reset to the first page after applying filters
+       
     } catch (error) {
       setLoader(false);
       toast.error('Error fetching filtered users', {

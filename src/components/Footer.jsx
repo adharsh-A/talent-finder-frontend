@@ -19,17 +19,13 @@ const Footer = (props) => {
     {/* Right Side - Social Links */}
     <div className="flex flex-col md:w-1/2 md:items-end">
   <div className="flex space-x-4 my-2">
-    <a href="https://github.com/ashrafhassan6/talent-finder" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+    <a href="https://github.com/adharsh-A" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 fill-current text-white" viewBox="0 0 24 24">
         <path d="M12 0a12 12 0 00-3.79 23.4c.6.1.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.75.08-.75 1.22.09 1.86 1.25 1.86 1.25 1.08 1.85 2.83 1.32 3.53 1.01.11-.78.42-1.32.76-1.62-2.67-.31-5.47-1.34-5.47-5.97 0-1.32.47-2.39 1.25-3.24-.13-.31-.54-1.55.12-3.23 0 0 1.01-.32 3.3 1.24a11.5 11.5 0 016.02 0c2.3-1.56 3.31-1.24 3.31-1.24.67 1.68.26 2.92.13 3.23.78.85 1.25 1.92 1.25 3.24 0 4.64-2.8 5.66-5.48 5.97.43.37.81 1.11.81 2.25v3.34c0 .32.22.68.83.58A12 12 0 0012 0z" />
       </svg>
     </a>
-    <a href="https://twitter.com/AshrafHassan6" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 fill-current text-white" viewBox="0 0 24 24">
-        <path d="M24 4.557a9.88 9.88 0 01-2.828.775 4.937 4.937 0 002.165-2.724 9.866 9.866 0 01-3.127 1.196 4.92 4.92 0 00-8.384 4.482A13.96 13.96 0 011.671 3.149 4.91 4.91 0 003.18 9.723a4.902 4.902 0 01-2.23-.616v.062a4.92 4.92 0 003.946 4.827 4.936 4.936 0 01-2.224.085 4.924 4.924 0 004.604 3.417A9.868 9.868 0 010 19.54a13.936 13.936 0 007.548 2.212c9.057 0 14.01-7.503 14.01-14.008 0-.214-.005-.428-.014-.64A10.012 10.012 0 0024 4.557z" />
-      </svg>
-    </a>
-    <a href="https://www.linkedin.com/in/ashraf-hassan-6a8b441b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+
+    <a href="https://www.linkedin.com/in/adharsh-boddul-6847a3235/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 fill-current text-white" viewBox="0 0 24 24">
         <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.334 20h-3v-10h3v10zm-1.5-11.568c-.966 0-1.5-.727-1.5-1.434 0-.725.548-1.434 1.531-1.434.966 0 1.5.709 1.5 1.434 0 .707-.548 1.434-1.531 1.434zm12.5 11.568h-3v-5.488c0-1.357-.487-2.285-1.703-2.285-.928 0-1.484.625-1.728 1.229-.089.211-.111.508-.111.803v5.741h-3v-10h3v1.361c.387-.596 1.028-1.44 2.498-1.44 1.817 0 3.045 1.194 3.045 3.762v6.317z" />
       </svg>

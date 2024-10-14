@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
+    "formik": "^2.4.6",
     "framer-motion": "^11.11.0",
     "lucide-react": "^0.447.0",
     "monorepo": "github:radix-ui/themes",
@@ -43,7 +44,8 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.169.0",
-    "three-globe": "^2.32.0"
+    "three-globe": "^2.32.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { useUpdateUserProfileMutation } from "@/redux/userApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Footer from "@/components/Footer";
 
 export function UserDetailsForm() {
   const [
@@ -16,23 +15,22 @@ export function UserDetailsForm() {
   const navigate = useNavigate();
 
   const id = useSelector((state) => state.auth.id);
-  const [userId, setUserId] = useState(id);
-  
+
   // Synchronize userId with Redux state id if id changes
+
   useEffect(() => {
-    setUserId(id);
+    if (id) setFormData((prevData) => ({ ...prevData, userId: id }));
   }, [id]);
   
+
   // State for form data
   const [formData, setFormData] = useState({
-    userId: userId,
     skills: "",
     occupation: "",
     experience: "",
     portfolio: "",
     additionalInfo: "",
   });
-  
 
   // Function to handle form input changes
   const handleInputChange = (e) => {
@@ -46,15 +44,15 @@ export function UserDetailsForm() {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {  
+    try {
       const response = await updateUserProfile(formData).unwrap();
-console.log('Update response:', response);
+      console.log("Update response:", response);
 
       toast.success("Profile updated successfully");
       navigate("/");
     } catch (err) {
       console.log(err);
-      toast.error("Failed to update profile",{
+      toast.error("Failed : Try Again", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -76,9 +74,9 @@ console.log('Update response:', response);
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-        <Label htmlFor="skills">
-  Skills <sup>(separate with commas)</sup>
-</Label>
+          <Label htmlFor="skills">
+            Skills <sup>(separate with commas)</sup>
+          </Label>
           <Input
             id="skills"
             placeholder="e.g., React, Node.js, Python"
@@ -92,7 +90,6 @@ console.log('Update response:', response);
         <LabelInputContainer className="mb-4">
           <Label htmlFor="occupation">Occupation</Label>
           <Input
-            id="occupation"
             list="occupations"
             placeholder="e.g., Software Developer"
             type="text"
@@ -167,6 +164,7 @@ const LabelInputContainer = ({ children, className }) => {
     </div>
   );
 };
+
 export const occupations = [
   "Software Engineer",
   "Web Developer",
