@@ -11,12 +11,11 @@ import Loader from "../components/ui/Loader.jsx";
 
 const ClientProfile = () => {
   const id = useSelector((state) => state.auth.id);
-  const { data: clientData, isLoading: isClientLoading } = useGetClientQuery(id);
+  const { data: clientData, isLoading: isClientLoading } = useGetClientQuery(Number(id));
   const [updateClient, { isLoading }] = useUpdateClientMutation();
   
   // Initialize form data state
   const [formData, setFormData] = useState({
-    userId: id,
     name: "",
     username: "",
     clientCompany: "",
@@ -30,7 +29,7 @@ const ClientProfile = () => {
   useEffect(() => {
     if (clientData) {
       setFormData({
-        userId: id,
+        userId: Number(id),
         name: clientData.name || "",
         username: clientData.username || "",
         clientCompany: clientData.data.clientCompany || "",
@@ -90,7 +89,8 @@ const ClientProfile = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your name"
-          />
+            />
+            <h1>{typeof(id)}</h1>
           <Label htmlFor="username">Username</Label>
           <Input
             label="Username"

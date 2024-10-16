@@ -53,7 +53,7 @@ export function Talents () {
     try {
       setLoader(true);
       const link=import.meta.env.VITE_BACKEND
-      const data = await axios.post(`http://localhost:8080/api/client/search-data`, {
+      const data = await axios.post(`${link}client/search-data`, {
         experience: experience,
         occupation: selectedOccupation,
         skill: skill,
