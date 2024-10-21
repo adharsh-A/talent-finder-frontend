@@ -50,8 +50,8 @@ const Navigation = () => {
     toggleDrawer();
   }
   const handleLogout = () => {
-    dispatch(logout());
     navigate("/");
+    dispatch(logout());
   };
 
   const handleDelete=async()=>{

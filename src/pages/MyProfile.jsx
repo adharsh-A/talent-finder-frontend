@@ -120,7 +120,6 @@ const occupationData = [
 ];
 
 const MyProfile = (props) => {
-  const [occupations, setOccupations] = useState(occupationData);
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
   const id = useSelector((state) => state.auth.id);
   const [formData, setFormData] = useState({
@@ -134,27 +133,25 @@ const MyProfile = (props) => {
     userId: Number(id),
   });
 
-  const [skillsString, setSkillsString] = useState("");
-  const { data, isLoading } = useGetUserQuery(Number(id));
+  const { data = {}, isLoading } = useGetUserQuery(Number(id));
 
   useEffect(() => {
-    if (data) {
-      // Convert skills array to a string
-      setSkillsString(data.data.skills?.join(", ") || "");
-
+    if (data&&data.data) {
+      console.log("Data received:", data);
       // Update formData with user data
       setFormData({
         name: data.name || "",
         username: data.username || "",
-        skills: skillsString || "",
+        skills: typeof data.data.skills === "string" ? data.data.skills : "",
         occupation: data.data.occupation || "",
         experience: data.data.experience || "",
         additionalInfo: data.data.additionalInfo || "",
         portfolio: data.data.portfolio || "",
         userId: Number(id),
       });
+    
     }
-  }, [data, id, skillsString]);
+  }, [data, id]);
 
   // Handle input change
   const handleChange = (e) => {
@@ -234,7 +231,7 @@ const MyProfile = (props) => {
                 className="bg-zinc-800 text-white rounded-md p-2 w-full"
               >
                 <option value="" disabled>Select an occupation</option>
-                {occupations.map((occupation, index) => (
+                {occupationData.map((occupation, index) => (
                   <option value={occupation} key={index} className="text-white bg-slate-700 p-2 w-full ">
                     {occupation}
                   </option>

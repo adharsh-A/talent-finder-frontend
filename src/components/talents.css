@@ -8,3 +8,10 @@
     display: none;
 
 }
+.disabled-button {
+    cursor: not-allowed; /* Change the cursor to not-allowed */
+    background-color: #b22222; /* Dark red background */
+    color: #fff; /* White text */
+    opacity: 0.6; /* Make the button slightly transparent */
+  }
+  

@@ -11,6 +11,7 @@ import ProfileView from "./pages/ProfileView.jsx";
 import Footer from "./components/Footer.jsx";
 import MyProfile from "./pages/MyProfile.jsx";
 import ClientProfile from "./pages/ClientProfile.jsx";
+import JobPost from "./pages/JobPost.jsx";
 import { useDispatch } from "react-redux";
 import { logout } from "./redux/authSlice.js";
 import { useEffect } from "react";
@@ -25,14 +26,15 @@ function App() {
         <Navigation />
         {/* <Button variant="outline">Hello</Button> */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:id" element={<ProfileView />} />
-          <Route path="/auth" element={<Login />} />
-          <Route path="/talent-data" element={<UserDetailsForm />} />
-          <Route path="/client-data" element={<ClientDetailsForm />} />
-          <Route path="/talents" element={<TalentData/>} />
-          <Route path="/me" element={<MyProfile />} />
-          <Route path="/profile" element={<ClientProfile />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/create" element={<JobPost />} />
+          <Route exact path="/:id" element={<ProfileView />} />
+          <Route exact path="/auth" element={<Login />} />
+          <Route exact path="/talent-data" element={<UserDetailsForm />} />
+          <Route exact path="/client-data" element={<ClientDetailsForm />} />
+          <Route exact path="/talents" element={<TalentData/>} />
+          <Route exact path="/me" element={<MyProfile />} />
+          <Route exact path="/profile" element={<ClientProfile />} />
         </Routes>
       </Router>
       <Footer />
