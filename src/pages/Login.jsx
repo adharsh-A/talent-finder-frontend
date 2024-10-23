@@ -105,12 +105,16 @@ export function Login() {
         );
 
         toast.success(`Hello ${formData.username}!!`);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
         if (result.role === "talent") {
           navigate(isRegister ? "/talent-data" : "/");
         } else {
           navigate(isRegister ? "/client-data" : "/");
         }
       } catch (err) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
         console.error(
           isRegister ? "Registration failed:" : "Login failed:",
           err
@@ -128,6 +132,8 @@ export function Login() {
     setIsRegister((prev) => !prev);
     console.log(isRegister); // Log the value of isRegister after state change
     setErrors({});
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
   };
   
 
@@ -275,7 +281,7 @@ export function Login() {
           )}
 
           <button
-            className={`login-button ${
+            className={`login-button ${isLoggingIn || isRegistering ? "bg-gray-500 text-white" : ""} ${
               isLoggingIn || isRegistering ? "disabled" : ""
             }`}
             type="submit"

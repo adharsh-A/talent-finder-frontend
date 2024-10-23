@@ -6,8 +6,10 @@ import { Button } from "../components/ui/button";
 import axios from "axios";
 import Loader from "./ui/Loader";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function Talents() {
+  const navigate = useNavigate();
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [experience, setExperience] = useState("");
   const [selectedOccupation, setSelectedOccupation] = useState("");
@@ -176,7 +178,12 @@ export function Talents() {
         </div>
 
         <div className="w-4/5 p-4">
-          <h2 className="font-bold text-4xl mb-4">Talents</h2>
+          <div className="flex justify-between">
+            <h2 className="font-bold text-4xl mb-4">Talents</h2>
+            <button onClick={() => navigate("/users")} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+        View All Users
+      </button>
+          </div>
           {isLoading || loader ? (
             <Loader width="500" height="280" />
           ) : (

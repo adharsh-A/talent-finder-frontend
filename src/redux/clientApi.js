@@ -9,7 +9,7 @@ export const clientApi = createApi({
         }),
         updateClient: builder.mutation({
             query: (data) => ({
-                url: `client/${data.id}`, // Use the client's ID from the data object
+                url: `client/${data.userId}`, 
                 method: "PUT",
                 body: data, // Send the data as the request body
             }),

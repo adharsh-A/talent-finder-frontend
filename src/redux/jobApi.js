@@ -1,16 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
 
-const jobApi = createApi({
+
+export const jobApi = createApi({
     reducerPath: "jobApi",
     baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND }),
     tagTypes: ["Job"],
     endpoints: (builder) => ({
         getAllJobs: builder.query({
-            query: ({ page, limit }) => ({
-                url: `jobs?page=${page}&limit=${limit}`,
-                method: "GET",
-            }),
-        }),
+            query: ({ page, limit }) => `jobs?page=${page}&limit=${limit}`,
+          }),
         getJob: builder.query({
             query: (id) => ({
                 url: `jobs/${id}`,

@@ -71,7 +71,7 @@ try{
     <>
 
       {/* NavBar */}
-      <div className="z-10 absolute flex w-full justify-center inset-x-0 top-5">
+      <div className=" fixed hidden md:flex z-50 flex w-full justify-center  top-5">
         <div className="flex rounded-full p-5 w-fit nav-container">
           <NavLink to="/" className="nav-link" activeClassName="active">
             <h1 className="text-white mx-2 cursor-pointer font-weight-100">Home</h1>
@@ -79,6 +79,10 @@ try{
 
           <NavLink to="/talents" className="nav-link" activeClassName="active">
             <h1 className="text-white mx-2 cursor-pointer font-weight-100">Talents</h1>
+          </NavLink>
+
+          <NavLink to="/users" className="nav-link" activeClassName="active">
+            <h1 className="text-white mx-2 cursor-pointer font-weight-100">Users</h1>
           </NavLink>
 
           {!isAuthenticated && (

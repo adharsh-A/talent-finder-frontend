@@ -67,7 +67,7 @@ const ClientProfile = () => {
       toast.success("Profile saved successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
-      toast.error("Error updating profile");
+      toast.error(response.message);
     }
   };
 
