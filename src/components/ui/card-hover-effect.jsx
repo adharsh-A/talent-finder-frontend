@@ -19,7 +19,7 @@ export const HoverEffect = ({ items, className }) => {
     >
       {items.map((item, idx) => (
         <Link
-          to={`${item?.id}`}
+          to={`/${item?.id}`}
           key={item?.id || idx}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -28,7 +28,7 @@ export const HoverEffect = ({ items, className }) => {
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-zinc-800/[0.8] block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -91,6 +91,7 @@ export const Card = ({ className, children }) => {
       <div className="relative z-50">
         <div className="p-6">{children}</div>
       </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-violet-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   );
 };

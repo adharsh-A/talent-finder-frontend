@@ -26,7 +26,7 @@ export const JobSearch = () => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
           params: {
             page: currentPage,
-            limit: 29,
+            limit: 50,
           },
         });
 

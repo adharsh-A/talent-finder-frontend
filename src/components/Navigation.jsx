@@ -65,6 +65,14 @@ try{
     navigate('/')
     toggleDrawer()
   }
+  const moveToApplications = () => {
+    navigate("/applications");
+    toggleDrawer();
+  }
+  const moveToJobsPosted = () => {
+    navigate("/jobsPosted");
+    toggleDrawer();
+  }
 
 
   return (
@@ -81,8 +89,8 @@ try{
             <h1 className="text-white mx-2 cursor-pointer font-weight-100">Talents</h1>
           </NavLink>
 
-          <NavLink to="/users" className="nav-link" activeClassName="active">
-            <h1 className="text-white mx-2 cursor-pointer font-weight-100">Users</h1>
+          <NavLink to="/jobs" className="nav-link" activeClassName="active">
+            <h1 className="text-white mx-2 cursor-pointer font-weight-100">Jobs</h1>
           </NavLink>
 
           {!isAuthenticated && (
@@ -114,6 +122,7 @@ try{
                     {isAuthenticated && (
               <h1 className="text-white mx-2 cursor-pointer  font-weight-100" onClick={toggleDrawer}>Menu</h1>
           )}
+
     <Drawer
       anchor="right"
       open={toggleOpen}
@@ -139,12 +148,19 @@ try{
             <ListItemText primary="Profile" className="list-text" />
           </ListItem>
               {/* applications */}
-          <ListItem button onClick={moveToProfile}>
+{role==="talent" &&          <ListItem button onClick={moveToApplications}>
             <ListItemIcon>
               <PermContactCalendarIcon className="icon" />
             </ListItemIcon>
             <ListItemText primary="Applications" className="list-text" />
-          </ListItem>
+                </ListItem>}
+{role==="client" &&          <ListItem button onClick={moveToJobsPosted}>
+            <ListItemIcon>
+              <PermContactCalendarIcon className="icon" />
+            </ListItemIcon>
+            <ListItemText primary="Jobs Posted" className="list-text" />
+                </ListItem>}
+                
               {/* notifications */}
           <ListItem button onClick={toggleDrawer}>
             <ListItemIcon>

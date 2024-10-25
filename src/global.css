@@ -20,9 +20,30 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* outline: 1px solid lime; */
+
+}
+html {
+  @apply antialiased subpixel-antialiased;
+
+  ::-moz-selection {
+    background-color: #043044;
+    color: #fff;
+  }
+  ::selection {
+    background-color: #043044;
+    color: #fff;
+  }
+}
+
 
 a {
   font-weight: 500;

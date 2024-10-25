@@ -27,14 +27,14 @@ export function Talents() {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [projectsPerPage] = useState(3); // You can adjust the number of items per page
+  const [projectsPerPage] = useState(10); // You can adjust the number of items per page
   const [paginationLoading, setPaginationLoading] = useState(false); // New loading state for pagination
 
   // State for the filters
   const [loader, setLoader] = useState(false);
   const { data, isLoading } = useGetAllUsersQuery({
     page: currentPage,
-    limit: projectsPerPage,
+    limit: 10,
   });
 
   if (data) {
@@ -69,7 +69,6 @@ export function Talents() {
         setFilteredProjects(response.users);
         setLoader(false);
       }
-      setCurrentPage(response.currentPage); // Reset to the first page after applying filters
     } catch (error) {
       setLoader(false);
       toast.error(err, {
@@ -102,6 +101,7 @@ export function Talents() {
       }, 2000); // Simulate loading for 2000ms
     }
   };
+  
 
   return (
     <>
@@ -180,8 +180,8 @@ export function Talents() {
         <div className="w-4/5 p-4">
           <div className="flex justify-between">
             <h2 className="font-bold text-4xl mb-4">Talents</h2>
-            <button onClick={() => navigate("/users")} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-        View All Users
+            <button onClick={() => navigate("/users")} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] hover:bg-[length:100%_100%]">
+        View All Users &rarr;
       </button>
           </div>
           {isLoading || loader ? (
