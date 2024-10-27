@@ -55,16 +55,19 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const moveToProfile = () => {
+  const moveToProfile = (event) => {
+    event.preventDefault();
     navigate(role === "talent" ? "/me" : "/profile");
     toggleDrawer();
   };
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    event.preventDefault();
     navigate("/");
     dispatch(logout());
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (event) => {
+    event.preventDefault
     try {
       const response = await deleteUser(id).unwrap();
       console.log("Delete response:", response);
@@ -74,15 +77,18 @@ const Navigation = () => {
     navigate("/");
     toggleDrawer();
   };
-  const moveToApplications = () => {
+  const moveToApplications = (event) => {
+    event.preventDefault();
     navigate("/applications");
     toggleDrawer();
   };
-  const moveToJobsPosted = () => {
+  const moveToJobsPosted = (event) => {
+    event.preventDefault();
     navigate("/jobsPosted");
     toggleDrawer();
   };
-  const moveToHome = () => {
+  const moveToHome = (event) => {
+    event.preventDefault();
     navigate("/");
     toggleDrawer();
   };
