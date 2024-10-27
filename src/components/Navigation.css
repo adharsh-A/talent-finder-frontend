@@ -10,6 +10,7 @@ h1{
 /* Keyframes animation for scaling */
 /* Sidebar.css */
 .sidebar-content {
+  min-width: 200px;
   width: 300px; /* Adjust the width of the drawer */
   padding: 20px;
   background-color: #353535b4; /* Dark background */
@@ -64,7 +65,7 @@ h1{
 }
 
 .custom-drawer .MuiPaper-root {
-  background-color: #1f1f1f !important; /* Ensures dark mode background for the drawer */
+  background-color: #0f0f0f !important; /* Ensures dark mode background for the drawer */
 }
 
 
@@ -76,4 +77,15 @@ h1{
   border-radius: 10px;
   padding-bottom: 2px;
   transition: all 0.3s cubic-bezier(0.075, 1.82, 0.165, 2); /* Fixing the transition */
+}
+.close-button{
+  display:none;
+}
+@media screen and (max-width: 768px) {
+  .sidebar-content{
+    max-width: 120px;
+  }
+  .close-button{
+    display:block;
+  }
 }

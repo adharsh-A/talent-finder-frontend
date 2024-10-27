@@ -10,7 +10,10 @@ const defaultProfileImg = 'https://tabler.io/_next/image?url=%2Favatars%2Fdefaul
 
 const AllUsers = () => {
   document.title = 'All Users';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  useEffect(() => {
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -51,9 +54,7 @@ const AllUsers = () => {
   return (
     <div className="bg-slate-950 min-h-screen text-white py-10 px-4 pt-28">
       {isLoading ? (
-        <div className="flex justify-center items-center h-full">
-          <Loader /> {/* Displaying the Loader when isLoading is true */}
-        </div>
+          <Loader /> 
       ) : (
         <>
           {/* Bento Grid for Cards */}

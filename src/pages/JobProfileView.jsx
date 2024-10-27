@@ -17,6 +17,7 @@ const JobDetail = () => {
   const { toast } = useToast();
   const { id } = useParams(); // Get the job ID from the route parameters
   const userId = useSelector((state) => state.auth.id); // Get user ID from Redux store
+  const role = useSelector((state) => state.auth.role);
 
   const [jobId, setJobId] = useState(id); // Job ID from route
   const [isApplying, setIsApplying] = useState(false); // Track if the user is applying
@@ -173,14 +174,14 @@ const JobDetail = () => {
           </p>
           <p>Created on: {new Date(job.createdAt).toLocaleDateString()}</p>
         </div>
-        <Button
+{role === "talent" ?        <Button
           variant="outline"
           onClick={handleApply}
           className="mt-4 mr-4 px-8"
           disabled={isApplying || appliedSuccessfully}
         >
           {isApplying ? "Applying..." : appliedSuccessfully ? "Applied" :  "Apply Now"}
-        </Button>
+        </Button>: <h1 className="text-red-500 mt-8 border border-red-500/80 mt-4 mr-4 px-4 py-2">only talent can apply</h1>}
       </div>
     </div>
   );

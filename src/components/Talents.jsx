@@ -105,9 +105,9 @@ export function Talents() {
 
   return (
     <>
-      <div className="flex max-w-7xl mx-auto px-8">
+      <div className="flex max-w-7xl mx-auto md:px-8 px-1">
         {/* Sidebar */}
-        <div className="w-1/5 p-4 bg-black rounded-lg shadow-md talent-sidebar">
+        <div className="hidden md:block md:w-1/5 p-4 bg-black rounded-lg shadow-md talent-sidebar">
           <h2 className="text-xl font-bold mb-4 text-white">Filters</h2>
 
           {/* Experience Filter */}
@@ -177,10 +177,11 @@ export function Talents() {
           </Button>
         </div>
 
-        <div className="w-4/5 p-4">
+        <div className="w-full md:w-4/5 md:p-4 px-1 pd-28  justify-center items-center" >
           <div className="flex justify-between">
-            <h2 className="font-bold text-4xl mb-4">Talents</h2>
-            <button onClick={() => navigate("/users")} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] hover:bg-[length:100%_100%]">
+            <h2 className="font-bold text-4xl hidden md:block">Talents</h2>
+            <h2 className="font-bold text-lg md:hidden mb-4">Featured Talent</h2>
+            <button onClick={() => navigate("/users")} className="md:inline-flex block h-8md:h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] hover:bg-[length:100%_100%]">
         View All Users &rarr;
       </button>
           </div>
@@ -190,7 +191,7 @@ export function Talents() {
             <HoverEffect items={filteredProjects} />
           )}
 
-          <div className="pagination">
+          <div className="pagination md:block hidden pd-20">
             <Button
               className={`mx-4 text-white ${
                 currentPage === 1 || paginationLoading ? "disabled-button" : ""

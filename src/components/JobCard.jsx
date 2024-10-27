@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const JobCard = ({ job, className }) => {
+  const role=useSelector((state)=>state.auth.role) || "";
   // Split the job description into words and limit it to 15 words
   const truncateDescription = (description) => {
     const words = description.split(" ");
@@ -10,6 +12,7 @@ const JobCard = ({ job, className }) => {
     }
     return description;
   };
+
 
   return (
     <Link to={`/jobs/${job.id}`}>
@@ -23,12 +26,12 @@ const JobCard = ({ job, className }) => {
         <p className="text-gray-300">Experience: {job.data.experience}</p>
         <p className="text-gray-300">Skills: {job.data.skills}</p>
         <div className="mt-4">
-          <button
+{role==="talent" &&          <button
             to={`/jobs/${job.id}`}
             className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400"
           >
             Apply Now
-          </button>
+          </button>}
         </div>
       </div>
     </Link>

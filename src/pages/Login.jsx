@@ -1,6 +1,5 @@
 import React, { useState, useEffect, act } from "react";
 import { Label } from "../components/ui/label";
-import { useToast } from "@/hooks/use-toast"
 
 
 import { Input } from "../components/ui/input";
@@ -11,10 +10,10 @@ import { useLoginMutation, useRegisterMutation } from "../redux/authentication";
 import { setCredentials } from "@/redux/authSlice";
 import { useDispatch } from "react-redux";
 import "./Login.css";
+import {toast} from "sonner"
 import { occupations } from "./UserDetails";
 
 export function Login() {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isRegister, setIsRegister] = useState(true);
@@ -107,12 +106,11 @@ export function Login() {
           })
         );
 
-        toast({
-          title: `hello ${result.username}`,
-          description: `Date: ${new Date()}`,
-          variant: "default",
-
-        })
+        toast(
+          `hello ${result.username}`, {
+            description: `Date: ${new Date()}`,
+          }
+        )
 
         if (result.role === "talent") {
           navigate(isRegister ? "/talent-data" : "/");

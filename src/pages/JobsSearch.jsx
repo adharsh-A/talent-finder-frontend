@@ -30,8 +30,9 @@ export const JobSearch = () => {
           },
         });
 
-        setJobs(response.data.jobs||[]);
-        setFilteredJobs(response.data.jobs||[]); // Initially all jobs are visible
+        const sortedApplications = response.data.jobs.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        setJobs(sortedApplications);
+        setFilteredJobs(sortedApplications||[]); // Initially all jobs are visible
         setCurrentPage(response.data.currentPage);
         setTotalPages(response.data.totalPages);
         setIsLoading(false);

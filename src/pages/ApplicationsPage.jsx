@@ -6,9 +6,12 @@ import { useSelector } from "react-redux";
 import NotFound from "./NotFound";
 import { Building2, MapPin, Calendar, Briefcase, DollarSign, Trash2 } from "lucide-react";
 import Loader from "@/components/ui/Loader";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const ApplicationsPage = () => {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  },[])
   const id = useSelector((state) => state.auth.id);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +28,11 @@ const ApplicationsPage = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND}jobs/applications-user/${id}`
       );
-      setApplications(response.data);
+      
+      // Sort applications by updatedAt in descending order
+      const sortedApplications = response.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+      setApplications(sortedApplications);
       setLoading(false);
     } catch (err) {
       console.error("Failed to fetch applications:", err);
@@ -33,14 +40,14 @@ const ApplicationsPage = () => {
       setLoading(false);
     }
   };
+
   const handleDelete = async () => {
     try {
-      // Modify the DELETE request to use query parameters
       await axios.delete(
         `${import.meta.env.VITE_BACKEND}jobs/application/delete`, 
         {
-            params: {
-              applicationId: deletingId,
+          params: {
+            applicationId: deletingId,
           }
         }
       );
@@ -53,7 +60,8 @@ const ApplicationsPage = () => {
       setShowDeleteDialog(false);
     }
   };
-    const getStatusColor = (status) => {
+
+  const getStatusColor = (status) => {
     const statusColors = {
       pending: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
       accepted: "bg-green-500/10 text-green-500 border-green-500/20",
@@ -129,8 +137,8 @@ const ApplicationsPage = () => {
                         </div>
 
                         <div className="flex items-center text-gray-400">
-                          <DollarSign className="h-4 w-4 mr-2" />
-                          <span>${application.job.salary.toLocaleString()}</span>
+                          <DollarSign className="h-4 w-4 mr-0" />
+                          <span>{application.job.salary.toLocaleString()}</span>
                         </div>
                       </div>
                     </div>
@@ -145,24 +153,21 @@ const ApplicationsPage = () => {
                       </div>
                       <div className="flex items-center text-gray-400 text-sm">
                         <Calendar className="h-4 w-4 mr-2" />
-                                    Applied {new Date(application.createdAt).toLocaleDateString()}
-                                                    {/* Custom Delete Button and Dialog */}
-                <button
-                  className=" mx-4 rounded-full opacity-1 transition-opacity duration-200 hover:bg-white/10"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDeletingId(application.id);
-                    setShowDeleteDialog(true);
-                  }}
-                >
-                  <Trash2 className="h-5 w-5 text-red-400" />
-                </button>
+                        Applied {new Date(application.createdAt).toLocaleDateString()}
+                        <button
+                          className=" mx-4 rounded-full opacity-1 transition-opacity duration-200 hover:bg-white/10"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setDeletingId(application.id);
+                            setShowDeleteDialog(true);
+                          }}
+                        >
+                          <Trash2 className="h-5 w-5 text-red-400" />
+                        </button>
                       </div>
                     </div>
                   </div>
                 </Link>
-
-
 
                 {showDeleteDialog && deletingId === application.id && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

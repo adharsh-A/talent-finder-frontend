@@ -418,7 +418,7 @@ export function TalentData() {
           </h2>
       
 
-          <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
+          <p className="text-center text-sm md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
             Bringing clients and top talent together effortlessly for growth and
             success.
           </p>

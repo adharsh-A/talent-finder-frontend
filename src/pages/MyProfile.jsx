@@ -120,6 +120,9 @@ const occupationData = [
 ];
 
 const MyProfile = (props) => {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  },[])
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
   const id = useSelector((state) => state.auth.id);
   const [formData, setFormData] = useState({
