@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "@/components/ui/Loader";
 import { Toaster, toast } from "sonner";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink,MoveLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const SeeApplicants = () => {
@@ -73,6 +73,9 @@ const SeeApplicants = () => {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
         <div className="text-center">
+        <button onClick={() => window.history.back()} className=" text-gray-400 hover:text-white transition-all">
+            <MoveLeft className="w-8 h-8"/>
+          </button>
           <h2 className="text-2xl font-bold text-white mb-2">
             No Talent Applications
           </h2>

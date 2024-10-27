@@ -82,12 +82,16 @@ const Navigation = () => {
     navigate("/jobsPosted");
     toggleDrawer();
   };
+  const moveToHome = () => {
+    navigate("/");
+    toggleDrawer();
+  };
 
   return (
     <>
       <div className="top-0 md:hidden h-12  flex items-center justify-between backdrop-blur-lg bg-white/10  z-50 fixed w-full flex justify-center">
         <BookHeart className="text-indigo-300/60 ml-2"/>
-        <Link to={"/"}>
+        <Link to="/">
           <h4 className="text-base font-italic text-white">Talent Finder.</h4>
         </Link>
         {isAuthenticated && (
@@ -198,7 +202,7 @@ const Navigation = () => {
                 {/*  profile */}
                 <div className="md:hidden block">
                   {isAuthenticated && (
-                    <ListItem button onClick={navigate("/")}>
+                    <ListItem button onClick={moveToHome}>
                       <ListItemIcon>
                         <House color="white"/>{" "}
                       </ListItemIcon>

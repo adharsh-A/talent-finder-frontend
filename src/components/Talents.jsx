@@ -37,9 +37,7 @@ export function Talents() {
     limit: 10,
   });
 
-  if (data) {
-    console.log(data);
-  }
+
   const projects = data?.users || [];
   let totalPages = data?.totalPages || 1;
   useEffect(() => {

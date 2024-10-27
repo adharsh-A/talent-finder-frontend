@@ -9,9 +9,8 @@ import Loader from '../components/ui/Loader'; // Importing the loader component
 const defaultProfileImg = 'https://tabler.io/_next/image?url=%2Favatars%2Fdefault%2F78529e2ec8eb4a2eb2fb961e04915b0a.png&w=400&q=75';
 
 const AllUsers = () => {
-  document.title = 'All Users';
+document.title = 'All Users';
   useEffect(() => {
-    
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 

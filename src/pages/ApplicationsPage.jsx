@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { useSelector } from "react-redux";
 import NotFound from "./NotFound";
-import { Building2, MapPin, Calendar, Briefcase, DollarSign, Trash2 } from "lucide-react";
+import { Building2, MapPin, Calendar, Briefcase, DollarSign, Trash2,ArrowUpFromLine } from "lucide-react";
 import Loader from "@/components/ui/Loader";
 import { toast } from "sonner";
 
@@ -105,6 +105,10 @@ const ApplicationsPage = () => {
         {applications.length === 0 ? (
           <div className="text-center py-20 bg-white/5 rounded-lg border border-white/10">
             <Briefcase className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+            <button onClick={() => window.history.back()} className="absolute top-6 right-6 text-gray-400 hover:text-white transition-all">
+              <ArrowUpFromLine className="h-6 w-6" />
+            </button>
+            
             <p className="text-xl text-gray-300">No applications found</p>
             <p className="text-gray-500 mt-2">Start applying to jobs to see them here</p>
           </div>
