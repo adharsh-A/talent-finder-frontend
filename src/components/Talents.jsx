@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { HoverEffect } from "../components/ui/card-hover-effect";
 import "./talents.css";
-import { useGetAllUsersQuery, useSearchByDataMutation } from "@/redux/userApi";
+import { useGetAllUsersQuery} from "@/redux/userApi";
 import { Button } from "../components/ui/button";
 import axios from "axios";
 import Loader from "./ui/Loader";

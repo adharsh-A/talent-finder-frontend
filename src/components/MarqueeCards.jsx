@@ -1,4 +1,3 @@
-import React from 'react';
 import './MarqueeCards.css'; // Make sure to import the CSS file
 
 const MarqueeCards = () => {

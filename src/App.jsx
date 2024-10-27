@@ -5,7 +5,6 @@ import Navigation from "./components/Navigation.jsx";
 import Footer from "./components/Footer.jsx";
 import ErrorBoundary from "./utils/ErrorBoundary.jsx";
 import { useSelector } from "react-redux";
-import Loader from "./components/ui/Loader.jsx";
 
 // Lazy load all page components
 //removed lazy 
@@ -25,7 +24,7 @@ import ApplicationsPage from "./pages/ApplicationsPage.jsx";
 import ViewJobsPosted from "./pages/ViewJobsPosted.jsx";
 import SeeApplicants from "./pages/SeeApplicants.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { Toaster, toast } from 'sonner'
+import { Toaster} from 'sonner'
 
 
 

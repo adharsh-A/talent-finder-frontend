@@ -14,17 +14,5 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "./src/assets"), // Alias for assets
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // Split vendor libraries into their own chunk
-            return id.toString().split('node_modules/')[1].split('/')[0].toString();
-          }
-        }
-      }
-    }
-  },
   plugins: [react()], // Include React plugin
 });
