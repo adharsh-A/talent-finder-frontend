@@ -1,0 +1,19 @@
+{
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
+    "framework": "vite",
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/node",
+        "config": {
+          "build": {
+            "env": {
+              "ROLLUP_NATIVE_BUILD": "0"
+            }
+          }
+        }
+      }
+    ]
+  }
