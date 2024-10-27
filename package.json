@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines":{
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.2",
