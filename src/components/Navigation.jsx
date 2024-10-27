@@ -60,7 +60,7 @@ const Navigation = () => {
     navigate(role === "talent" ? "/me" : "/profile");
     toggleDrawer();
   };
-  const handleLogout = (e) => {
+  const handleLogout = (event) => {
     event.preventDefault();
     navigate("/");
     dispatch(logout());
