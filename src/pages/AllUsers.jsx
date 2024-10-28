@@ -17,13 +17,12 @@ document.title = 'All Users';
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch users from API when component mounts
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setIsLoading(true);
         const response = await axios.get(`${import.meta.env.VITE_BACKEND}users`);
         setUsers(response.data.users);
       } catch (error) {
