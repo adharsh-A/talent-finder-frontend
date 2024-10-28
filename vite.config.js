@@ -26,9 +26,6 @@ export default defineConfig({
             if (id.includes("three") || id.includes("@react-three")) {
               return "three"; // Group Three.js libraries
             }
-            if (id.includes("@mui/material") || id.includes("@emotion")) {
-              return "mui"; // Group MUI libraries
-            }
             // You can add more libraries here if needed
           }
         },
