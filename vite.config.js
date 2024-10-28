@@ -4,27 +4,40 @@ import path from "path";
 
 export default defineConfig({
   css: {
-    postcss: "./postcss.config.js",
+    postcss: "./postcss.config.js", // Ensure this file exists and is configured correctly
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, "./src"), // fix here
       "@components": path.resolve(__dirname, "./src/components"),
       "@assets": path.resolve(__dirname, "./src/assets"),
     },
+    
   },
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-        }
-      }
-    }
+        // Define manual chunks for larger dependencies
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "react"; // Group React libraries
+            }
+            if (id.includes("three") || id.includes("@react-three")) {
+              return "three"; // Group Three.js libraries
+            }
+            if (id.includes("@mui/material") || id.includes("@emotion")) {
+              return "mui"; // Group MUI libraries
+            }
+            // You can add more libraries here if needed
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Increase chunk size limit to reduce warnings
   },
   optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled'],
-  },  
-  plugins: [react()]
+    include: ['@emotion/react', '@emotion/styled'], // Ensure these are optimized
+  },
+  plugins: [react()],
 });
