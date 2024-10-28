@@ -105,7 +105,7 @@ const Navigation = () => {
         </Link>
         {isAuthenticated && (
           <AlignJustify
-            className="cursor-pointer mr-3"
+            className="cursor-pointer mr-3 w-8 h-8 text-white"
             onClick={toggleDrawer}
           />
         )}
