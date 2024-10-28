@@ -83,7 +83,7 @@ h1{
 }
 @media screen and (max-width: 768px) {
   .sidebar-content{
-    max-width: 120px;
+    max-width: 250px;
   }
   .close-button{
     display:block;

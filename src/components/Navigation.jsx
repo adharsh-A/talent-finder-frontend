@@ -98,7 +98,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="top-0 md:hidden h-12  flex items-center justify-between backdrop-blur-lg bg-white/10  z-50 fixed w-full flex justify-center">
+      <div className="top-0 md:hidden h-16  flex items-center justify-between backdrop-blur-lg bg-white/10  z-50 fixed w-full flex justify-center">
         <BookHeart className="text-indigo-300/60 ml-2"/>
         <Link to="/">
           <h4 className="text-base font-italic text-white">Talent Finder.</h4>

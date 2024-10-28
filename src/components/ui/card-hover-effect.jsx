@@ -7,7 +7,7 @@ export const HoverEffect = ({ items, className }) => {
   let [hoveredIndex, setHoveredIndex] = useState(null);
 
   if (!items || !Array.isArray(items) || items.length === 0) {
-    return <div className="md:h-[200px] md:m-[20px] flex items-center justify-center border rounded-3xl">No items to display</div>;
+    return <div className="md:h-[200px] h-[150px] m-2 md:m-[20px] flex items-center justify-center border rounded-3xl">No items to display</div>;
   }
 
   return (
