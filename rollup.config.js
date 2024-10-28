@@ -3,15 +3,16 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from '@rollup/plugin-terser';
 
 export default {
-  input: 'src/main.jsx', // Adjust according to your entry file
+  input: 'src/main.jsx',
   output: {
-    file: 'dist/bundle.js', // Output file
-    format: 'iife', // Output format
-    name: 'MyProject', // Global variable name
+    file: 'dist/bundle.js',
+    format: 'iife',
+    name: 'TalentFinder',
   },
   plugins: [
-    resolve(), // Resolves npm packages
-    commonjs(), // Converts CommonJS modules to ES6
-    terser(), // Minifies the output
+    resolve(),
+    commonjs(),
+    terser(),
   ],
 };
+
