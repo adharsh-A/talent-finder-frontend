@@ -10,9 +10,7 @@ const defaultProfileImg = 'https://tabler.io/_next/image?url=%2Favatars%2Fdefaul
 
 const AllUsers = () => {
 document.title = 'All Users';
-  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
 
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);

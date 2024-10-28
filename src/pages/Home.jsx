@@ -18,7 +18,7 @@ const Home = (props) => {
   };
   return (
     <>
-      <div className="h-full w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      <div className="h-[35rem] items-center  md:h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
         <div className="md:hidden block absolute top-0 left-0 w-full h-full">
           <Vortex />
         </div>
