@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
-import JobCard from "../components/JobCard"; 
+import JobCard from "../components/JobCard";
 import Loader from "@/components/ui/Loader";
 import NotFound from "./NotFound";
 
 export const JobSearch = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() => {
+    return Number(sessionStorage.getItem('currentPage')) || 1;
+  });
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState({
     experience: "",
@@ -19,73 +19,90 @@ export const JobSearch = () => {
     remote: "",
   });
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
-          params: {
-            page: currentPage,
-            limit: 50,
-          },
+  // Memoized fetch function
+  const fetchJobs = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const paginatedResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
+        params: { page: currentPage, limit: 10 },
+      });
+
+      const paginatedJobs = paginatedResponse.data.jobs.sort(
+        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+      );
+      
+      setFilteredJobs(paginatedJobs || []);
+      setTotalPages(paginatedResponse.data.totalPages);
+      
+      // Fetch additional jobs only if filters are active
+      if (Object.values(filters).some(value => value !== "")) {
+        const initialResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
+          params: { page: 1, limit: 50 },
         });
-
-        const sortedApplications = response.data.jobs.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        setJobs(sortedApplications);
-        setFilteredJobs(sortedApplications||[]); // Initially all jobs are visible
-        setCurrentPage(response.data.currentPage);
-        setTotalPages(response.data.totalPages);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-        setIsError(true);
-        setIsLoading(false);
+        
+        setJobs(initialResponse.data.jobs.sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        ));
       }
-    };
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentPage, filters]);
 
+  useEffect(() => {
     fetchJobs();
+  }, [fetchJobs]);
+
+  useEffect(() => {
+    sessionStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
 
-  // Filter jobs based on experience, skills, or remote status
-  const applyFilters = () => {
+  // Memoized filter function
+  const applyFilters = useCallback(() => {
+    const { experience, skills, remote } = filters;
+    
+    if (!experience && !skills && !remote) {
+      return;
+    }
+
     const filtered = jobs.filter((job) => {
-      const { experience, skills, remote } = filters;
-
-          // Check if job.data exists before accessing its properties
-    if (!job.data) return false;
-
-      const matchesExperience = experience ? parseInt(job.data.experience) >= parseInt(experience) : true;
-      const matchesSkills = skills ? job.data.skills.toLowerCase().includes(skills.toLowerCase()) : true;
-      const matchesRemote = remote ? job.isRemote === (remote === "true") : true;
+      if (!job.data) return false;
+      
+      const matchesExperience = experience ? 
+        parseInt(job.data.experience) >= parseInt(experience) : true;
+      const matchesSkills = skills ? 
+        job.data.skills.toLowerCase().includes(skills.toLowerCase()) : true;
+      const matchesRemote = remote ? 
+        job.isRemote === (remote === "true") : true;
 
       return matchesExperience && matchesSkills && matchesRemote;
     });
+
     setFilteredJobs(filtered);
-  };
+  }, [jobs, filters]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [filters]);
-
-  const handleFilterChange = (e) => {
+  // Memoize handlers
+  const handleFilterChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-  };
+    setFilters(prev => ({ ...prev, [name]: value }));
+  }, []);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = useCallback((newPage) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentPage(newPage);
+  }, []);
 
-  };
+  // Memoize pagination numbers
+  const paginationNumbers = useMemo(() => 
+    Array.from({ length: totalPages }, (_, i) => i + 1),
+    [totalPages]
+  );
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (isError) {
-    return <NotFound />;
-  }
-
+  if (isLoading) return <Loader />;
+  if (isError) return <NotFound />;
   if (!Array.isArray(filteredJobs) || filteredJobs.length === 0) {
     return (
 <div className="flex justify-center items-center min-h-screen w-full bg-slate-950 py-8">
@@ -112,7 +129,7 @@ export const JobSearch = () => {
       <h1 className="text-right md:ml-0 mr-5 md:text-center text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600   font-bold md:text-4xl md:mb-8 mb-2 w-full ">Job Search</h1>
       
       {/* Filter Section */}
-      <div className="md:mb-8 mb-2 w-full flex  flex-col md:flex-row md:justify-center  items-end md:items-center gap-4 mr-5 md:ml-0">
+      <div className="md:mb-8 mb-3 w-full flex  flex-col md:flex-row md:justify-center  items-end md:items-center gap-4 mr-5 md:ml-0">
         <input
           type="text"
           name="experience"
@@ -132,6 +149,9 @@ export const JobSearch = () => {
           <option value="true">Remote</option>
           <option value="false">On-site</option>
         </select>
+      <button className="bg-gray-800 border border-gray-700 text-white font-bold rounded-md hover:bg-gray-800 transition duration-300 md:px-6 px-4 py-1" onClick={applyFilters}>
+        Apply
+      </button>
       </div>
 
       {/* Job Listing */}

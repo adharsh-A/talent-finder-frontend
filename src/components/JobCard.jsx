@@ -16,7 +16,7 @@ const JobCard = ({ job, className }) => {
   return (
     <Link to={`/jobs/${job.id}`}>
       <div
-        className={`md:min-w-[350px] min-w-[300px] text-left bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-5 m-0 transition-transform transform hover:scale-[1.02] ${className}`}
+        className={`md:min-w-[350px] min-w-[300px] text-left bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-5 m-0 transition-transform transform md:hover:scale-[1.02] ${className}`}
       >
         <h2 className="text-xl font-bold text-[#c7d2fe]">{job.title}</h2>
         <p className="text-gray-400 mb-2">{job.location}</p>
