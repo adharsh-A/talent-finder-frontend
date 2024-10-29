@@ -63,8 +63,7 @@ const Navigation = () => {
     navigate(role === "talent" ? "/me" : "/profile");
     toggleDrawer();
   };
-  const handleLogout = (event) => {
-    event.preventDefault();
+  const handleLogout = () => {
     navigate("/");
     dispatch(logout());
   };
@@ -98,7 +97,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="top-0 md:hidden h-16  flex items-center justify-between backdrop-blur-lg bg-white/10  z-50 fixed w-full flex justify-center">
+      <div className="top-0 md:hidden h-16  flex items-center justify-between backdrop-blur-lg bg-gray/50  z-50 fixed w-full flex justify-center">
         <BookHeart className="text-indigo-300/60 ml-2"/>
         <Link to="/">
           <h4 className="text-base font-italic text-white">Talent Finder.</h4>
@@ -111,7 +110,7 @@ const Navigation = () => {
         )}
         {!isAuthenticated && (
           <Link to="/auth">
-            <h1 className="text-base font-italic mr-2 text-white/50">Login</h1>
+            <h1 className="text-base font-italic underline mr-4 text-white/50">Login</h1>
           </Link>
         )}
       </div>

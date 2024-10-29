@@ -413,12 +413,12 @@ export function TalentData() {
           }}
           className="div"
         >
-          <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
+          <h2 className="text-center text-2xl md:text-4xl font-bold text-black dark:text-white">
             Empowering Connections, Elevating Success.{" "}
           </h2>
       
 
-          <p className="text-center text-sm md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
+          <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
             Bringing clients and top talent together effortlessly for growth and
             success.
           </p>
@@ -428,8 +428,8 @@ export function TalentData() {
           <World
             data={sampleData}
             globeConfig={globeConfig}
-            width={500}
-            height={500}
+            width={600}
+            height={600}
           />
         </div>
       </div>

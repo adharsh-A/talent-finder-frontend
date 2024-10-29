@@ -10,6 +10,14 @@ import { ArrowUpFromLine } from "lucide-react";
 import { Vortex } from "@/components/ui/vortex.jsx";
 
 const Home = (props) => {
+  const scrollAmount = 100; // Amount to scroll in pixels
+
+  const handleWheel = (event) => {
+      event.preventDefault(); // Prevent default scrolling
+      const delta = Math.sign(event.deltaY); // Determine scroll direction
+      // Scroll by 100 pixels in the direction of the wheel
+      event.currentTarget.scrollBy(0, delta * scrollAmount);
+  };
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const role = useSelector((state) => state.auth.role)||"talent";
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +26,7 @@ const Home = (props) => {
   };
   return (
     <>
-      <div className="h-[35rem] items-center  md:h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      <div className="h-[35rem] items-center overflow-y-auto md:h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden" onWheel={handleWheel}>
         <div className="md:hidden block absolute top-0 left-0 w-full h-full">
           <Vortex />
         </div>
@@ -33,10 +41,10 @@ const Home = (props) => {
           <h1 className="leading-[1.15]  pt-12  md:mt-0 md:leading-[1.3] text-3xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
             Find the Perfect Match <br /> Talents and Clients United.{" "}
           </h1>
-          <p className="mt-4 font-normal text-base text-neutral-300 md:max-w-lg hidden md:block text-justify mx-auto">
+          <p className="indent-4 mt-4 font-normal text-base text-neutral-300 md:max-w-lg hidden md:block text-justify mx-auto">
             Talent Finder is a cutting-edge platform designed to connect talented individuals with clients seeking their services. With a focus on efficiency, security, and scalability, Talent Finder offers a seamless experience for both clients and talents.
           </p>
-          <p className="mt-4 font-normal text-base text-neutral-300 md:max-w-lg block md:hidden text-sm text-center mx-auto">
+          <p className="indent-4 mt-4 font-normal text-base text-neutral-300 md:max-w-lg block md:hidden text-sm text-center mx-auto">
             The platform features robust user authentication, real-time job posting management, and advanced search capabilities, all built with security and scalability in mind.{" "}
           </p>
           <div className="flex flex-col justify-center items-center mt-4 md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">

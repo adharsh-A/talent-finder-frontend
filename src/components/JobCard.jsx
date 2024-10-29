@@ -16,14 +16,14 @@ const JobCard = ({ job, className }) => {
   return (
     <Link to={`/jobs/${job.id}`}>
       <div
-        className={`md:min-w-[350px] text-left bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-5 m-0 transition-transform transform hover:scale-[1.02] ${className}`}
+        className={`md:min-w-[350px] min-w-[300px] text-left bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-5 m-0 transition-transform transform hover:scale-[1.02] ${className}`}
       >
         <h2 className="text-xl font-bold text-[#c7d2fe]">{job.title}</h2>
         <p className="text-gray-400 mb-2">{job.location}</p>
-        <p className="text-gray-500">{truncateDescription(job.description)}</p>
-        <p className="text-gray-300 mt-2">Salary: ${job.salary.toLocaleString()}</p>
-        <p className="text-gray-300">Experience: {job.data.experience}</p>
-        <p className="text-gray-300">Skills: {job.data.skills}</p>
+        <p className="text-gray-500 md:block hidden">{truncateDescription(job.description)}</p>
+        <p className="text-gray-300 mt-2 md:text-base text-sm">Salary: ${job.salary.toLocaleString()}</p>
+        <p className="text-gray-300 text-sm md:text-base">Experience: {job.data.experience}</p>
+        <p className="text-gray-300 text-sm md:text-base">Skills: {job.data.skills}</p>
         <div className="mt-4">
 {role==="talent" &&          <button
             to={`/jobs/${job.id}`}

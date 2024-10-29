@@ -26,7 +26,7 @@ export const JobSearch = () => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
           params: {
             page: currentPage,
-            limit: 50,
+            limit: 10,
           },
         });
 
@@ -88,34 +88,36 @@ export const JobSearch = () => {
 
   if (!Array.isArray(filteredJobs) || filteredJobs.length === 0) {
     return (
-      <div className="pt-28 min-h-screen w-full bg-slate-950 text-center text-slate-50 py-8 flex flex-wrap justify-center">
-        <h1 className="text-4xl mb-8 w-full">Job Search</h1>
-        <p className="text-2xl mb-8 w-full">No jobs found.</p>
-        <p className="text-2xl mb-8 w-full">Please try different filters.</p>
-        <p className="text-2xl mb-8 w-full">If the issue persists, please contact support.</p>
-        <p className="text-2xl mb-8 w-full">Thank you!</p>
-        <button
-          type="button"
-          onClick={() => window.location.reload()}
-          className="py-2 px-4 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 transition duration-300"
-        >
-          Retry
-        </button>
-      </div>
+<div className="flex justify-center items-center min-h-screen w-full bg-slate-950 py-8">
+  <div className="text-sm bg-black md:bg-slate-800 rounded-lg shadow-lg p-6 max-w-md w-full text-center">
+    <h1 className="text-2xl font-bold md:text-xl md:text-4xl  mb-6 text-indigo-500">Job Search</h1>
+    <p className="text-sm md:text-xl  mb-4 text-slate-300">No jobs found.</p>
+    <p className="text-sm md:text-xl mb-4 text-slate-300">Please try different filters.</p>
+    <p className="text-sm md:text-xl mb-4 text-slate-300">If the issue persists, please contact support.</p>
+    <p className=" text-sm md:text-xl mb-6 text-slate-300">Thank you!</p>
+    <button
+      type="button"
+      onClick={() => window.location.reload()}
+      className="py-2 px-6 bg-gray-800 border border-gray-700 text-white font-bold rounded-md hover:bg-blue-700 transition duration-300"
+    >
+      Retry
+    </button>
+  </div>
+</div>
     );
   }
 
   return (
-    <div className="pt-28 min-h-screen w-full bg-slate-950 text-center text-slate-50 py-8 flex flex-wrap justify-center">
-      <h1 className="text-4xl mb-8 w-full">Job Search</h1>
+    <div className="tracking-wide md:pt-28 pt-20  min-h-screen w-full bg-slate-950 text-center text-slate-50 md:py-8 py-0 flex flex-wrap justify-center">
+      <h1 className="text-right md:ml-0 mr-5 md:text-center text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600   font-bold md:text-4xl md:mb-8 mb-2 w-full ">Job Search</h1>
       
       {/* Filter Section */}
-      <div className="mb-8 w-full flex flex-col md:flex-row justify-center items-center gap-4">
+      <div className="md:mb-8 mb-2 w-full flex  flex-col md:flex-row md:justify-center  items-end md:items-center gap-4 mr-5 md:ml-0">
         <input
           type="text"
           name="experience"
           placeholder="Filter by experience (e.g., 3+ years)"
-          className="p-2 rounded"
+          className=" p-2 rounded h-10"
           onChange={handleFilterChange}
         />
         <input
@@ -133,7 +135,7 @@ export const JobSearch = () => {
       </div>
 
       {/* Job Listing */}
-      <div className="px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+      <div className="md:px-16 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {filteredJobs.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}

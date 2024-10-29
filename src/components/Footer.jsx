@@ -1,8 +1,8 @@
 
 const Footer = () => {
   return (
-<footer className="p-10 mt-20 bg-black bottom-0 text-white w-full h-auto md:h-24 py-4 md:py-0 px-4 md:px-8">
-  <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:items-center">
+<footer className="p-10 mt-20 bg-black bg-black bottom-0 text-white w-full h-auto md:h-auto py-4 md:py-20 px-4 md:px-8">
+  <div className="container mx-auto p-4 flex flex-col md:flex-row md:justify-between md:items-center">
     
     {/* Left Side - Branding and Description */}
     <div className="flex flex-col md:w-1/2">

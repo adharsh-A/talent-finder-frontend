@@ -14,9 +14,12 @@ import {toast} from "sonner"
 import { occupations } from "./UserDetails";
 
 export function Login() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isRegister, setIsRegister] = useState(true);
+  const [isRegister, setIsRegister] = useState(false);
   const [userType, setUserType] = useState("talent");
 
   const [
@@ -135,7 +138,6 @@ export function Login() {
 
   const toggleAuthForm = () => {
     setIsRegister((prev) => !prev);
-    console.log(isRegister); // Log the value of isRegister after state change
     setErrors({});
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -144,22 +146,22 @@ export function Login() {
 
   return (
     <>
-      <div className="mt-28 max-w-2xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-gray-100 dark:bg-zinc-900 bg/[0.96]">
-        <h2 className="font-bold text-xl text-white dark:text-neutral-200">
+      <div className={` mt-28 ${isRegister ? "md:max-w-3xl" : "md:max-w-2xl"}  md:w-full md:mx-auto mx-4 md:border-[2px]  md:rounded-2xl p-4 md:p-8 shadow-2xl  md:dark:bg-zinc-950 md:border-zinc-700/80 md:border-2 transition duration-300 animate ease-in-out`}>
+        <h2 className="font-bold text-2xl md:text-3xl text-white dark:text-neutral-200">
           {isRegister ? "Register" : "Login"}
         </h2>
-        <p className="text-white text-sm max-w-sm mt-2 dark:text-neutral-300">
+        <p className="text-white text-sm md:text-base max-w-sm mt-2 dark:text-neutral-300/80">
           {isRegister ? "Sign up for Talent-Finder" : "Login to Talent-Finder"}
         </p>
         <button
-          className="mt-2 text-white text-sm underline"
+          className="mt-2 text-white text-sm md:text-base underline"
           onClick={toggleAuthForm}
         >
           {isRegister
             ? "Already have an account? Log in"
             : "Don't have an account? Sign up"}
         </button>
-        <form className="my-8" onSubmit={handleSubmit}>
+        <form className="my-8 space-y-4 " onSubmit={handleSubmit}>
           {isRegister && (
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
               <LabelInputContainer>
@@ -194,7 +196,7 @@ export function Login() {
           )}
 
           {isRegister && (
-            <LabelInputContainer className="mb-4">
+            <LabelInputContainer className="md:mb-4 mb-0">
               <Label htmlFor="email">Email Address</Label>
               <Input
                 id="email"
@@ -208,7 +210,7 @@ export function Login() {
             </LabelInputContainer>
           )}
 
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer className="md:mb-4 mb-0">
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
@@ -223,7 +225,7 @@ export function Login() {
             )}
           </LabelInputContainer>
 
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer className="md:mb-4 mb-0">
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
@@ -286,7 +288,7 @@ export function Login() {
           )}
 
           <button
-            className={`login-button ${isLoggingIn || isRegistering ? "bg-gray-500 text-white" : ""} ${
+            className={`login-button px-4 py-2 rounded-md ${isLoggingIn || isRegistering ? "bg-neutral-300/50 cursor-progress text-black border border-white/10" : ""} ${
               isLoggingIn || isRegistering ? "disabled" : ""
             }`}
             type="submit"
@@ -308,7 +310,7 @@ export function Login() {
           )}
         </form>
 
-        <p className="mt-10 text-xs text-neutral-400">
+        <p className="md:mt-10 -mt-4 text-sm text-neutral-400">
           By clicking Sign up, you agree to our Terms of Service and Privacy
           Policy.
         </p>
@@ -317,20 +319,20 @@ export function Login() {
 
         <div className="flex flex-col space-y-4">
           <button
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            className="relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
           >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <IconBrandGithub className="md:h-6 md:w-6 w-4 h-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               GitHub
             </span>
             <BottomGradient />
           </button>
           <button
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            className="relative text-neutral-700 align-middle group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="button"
           >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <IconBrandGoogle className="md:h-7 md:w-7 w-4 h-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               Google
             </span>
@@ -338,7 +340,6 @@ export function Login() {
           </button>
         </div>
       </div>
-
     </>
   );
 }
