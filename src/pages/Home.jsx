@@ -10,14 +10,7 @@ import { ArrowUpFromLine } from "lucide-react";
 import { Vortex } from "@/components/ui/vortex.jsx";
 
 const Home = (props) => {
-  const scrollAmount = 100; // Amount to scroll in pixels
-
-  const handleWheel = (event) => {
-      event.preventDefault(); // Prevent default scrolling
-      const delta = Math.sign(event.deltaY); // Determine scroll direction
-      // Scroll by 100 pixels in the direction of the wheel
-      event.currentTarget.scrollBy(0, delta * scrollAmount);
-  };
+  
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const role = useSelector((state) => state.auth.role)||"talent";
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +19,7 @@ const Home = (props) => {
   };
   return (
     <>
-      <div className="h-[35rem] items-center overflow-y-auto md:h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden" onWheel={handleWheel}>
+      <div className="h-[35rem] items-center  md:h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
         <div className="md:hidden block absolute top-0 left-0 w-full h-full">
           <Vortex />
         </div>
