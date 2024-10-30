@@ -106,12 +106,14 @@ const JobDetail = () => {
   };
 
   return (
-    <div className="job-card mt-28">
+    <div className="h-screen flex justify-center items-center">
+      
+    <div className="job-card">
       {/* Back button */}
       <button
         type="button"
         onClick={handleBack}
-        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 rounded-lg text-xs px-3 py-1 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 rounded-lg text-xs px-3 py-1 me-2 mb-6 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
       >
         <svg
           className="w-4 h-4 text-gray-800 dark:text-white"
@@ -170,9 +172,9 @@ const JobDetail = () => {
       <div className="job-footer flex justify-between">
         <div>
           <p>
-            <strong>Remote:</strong> {job.isRemote ? "Yes" : "No"}
+            <strong className="text-sm md:text-base">Remote:</strong> {job.isRemote ? "Yes" : "No"}
           </p>
-          <p>Created on: {new Date(job.createdAt).toLocaleDateString()}</p>
+          <p className="text-xs md:text-sm">Created on: {new Date(job.createdAt).toLocaleDateString()}</p>
         </div>
 {role === "talent" ?        <Button
           variant="outline"
@@ -183,6 +185,7 @@ const JobDetail = () => {
           {isApplying ? "Applying..." : appliedSuccessfully ? "Applied" :  "Apply Now"}
         </Button>: <h1 className="text-red-500 mt-8 border border-red-500/80 mt-4 mr-4 px-4 py-2">only talent can apply</h1>}
       </div>
+    </div>
     </div>
   );
 };

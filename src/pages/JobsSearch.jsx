@@ -20,38 +20,38 @@ export const JobSearch = () => {
   });
 
   // Memoized fetch function
-  const fetchJobs = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const paginatedResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
-        params: { page: currentPage, limit: 10 },
-      });
+  // Memoized fetch function
+const fetchJobs = useCallback(async () => {
+  setIsLoading(true);
+  try {
+    // Fetch paginated jobs for display
+    const paginatedResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
+      params: { page: currentPage, limit: 10 },
+    });
 
-      const paginatedJobs = paginatedResponse.data.jobs.sort(
-        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-      );
-      
-      setFilteredJobs(paginatedJobs || []);
-      setTotalPages(paginatedResponse.data.totalPages);
-      
-      // Fetch additional jobs only if filters are active
-      if (Object.values(filters).some(value => value !== "")) {
-        const initialResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
-          params: { page: 1, limit: 50 },
-        });
-        
-        setJobs(initialResponse.data.jobs.sort(
-          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-        ));
-      }
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentPage, filters]);
+    const paginatedJobs = paginatedResponse.data.jobs.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+    );
+    
+    setFilteredJobs(paginatedJobs || []);
+    setTotalPages(paginatedResponse.data.totalPages);
 
+    // Always fetch all jobs for filtering
+    const initialResponse = await axios.get(`${import.meta.env.VITE_BACKEND}jobs`, {
+      params: { page: 1, limit: 50 },
+    });
+    
+    setJobs(initialResponse.data.jobs.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+    ));
+
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    setIsError(true);
+  } finally {
+    setIsLoading(false);
+  }
+}, [currentPage]); // Remove filters from dependency array since we always fetch all jobs
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
@@ -149,9 +149,15 @@ export const JobSearch = () => {
           <option value="true">Remote</option>
           <option value="false">On-site</option>
         </select>
+        <div className="flex gap-2">
+          
       <button className="bg-gray-800 border border-gray-700 text-white font-bold rounded-md hover:bg-gray-800 transition duration-300 md:px-6 px-4 py-1" onClick={applyFilters}>
         Apply
-      </button>
+        </button>
+        <button className="bg-red-800/30 border border-red-700/30 text-white font-bold rounded-md hover:bg-gray-800 transition duration-300 md:px-6 px-4 py-1" onClick={() => setFilters({ experience: "", skills: "", remote: "" })}>
+          Clear
+        </button>
+        </div>
       </div>
 
       {/* Job Listing */}

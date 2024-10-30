@@ -115,8 +115,8 @@ const Navigation = () => {
         )}
       </div>
       {/* NavBar  desktop */}
-      <div className=" fixed hidden md:flex z-50 flex w-full justify-center  top-5">
-        <div className="flex rounded-full p-5 w-fit nav-container">
+      <div className=" md:fixed hidden md:flex z-50 flex w-full justify-center  top-8">
+        <div className="flex rounded-full py-3 px-4 w-fit nav-container backdrop-blur-lg ">
           <NavLink to="/" className="nav-link" activeClassName="active">
             <h1 className="text-white mx-2 cursor-pointer font-weight-100">
               Home

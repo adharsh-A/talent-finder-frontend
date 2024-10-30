@@ -34,15 +34,17 @@ export function Talents() {
   const [loader, setLoader] = useState(false);
   const { data, isLoading } = useGetAllUsersQuery({
     page: currentPage,
-    limit: 10,
+    limit: 4,
+  }, {
+    keepPreviousData: true,
   });
 
 
   const projects = data?.users || [];
-  let totalPages = data?.totalPages || 1;
+  const totalPages = data?.totalPages || 1;
   useEffect(() => {
-    if (data) {
-      setFilteredProjects(projects);
+    if (data?.users) {
+      setFilteredProjects(data.users);
     }
   }, [data]);
 
@@ -79,28 +81,17 @@ export function Talents() {
   // Logic for pagination
 
   // const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
-
   const nextPage = () => {
     if (currentPage < totalPages) {
-      setPaginationLoading(true);
-      setTimeout(() => {
-        setCurrentPage(currentPage + 1);
-        setPaginationLoading(false); // Stop loading after timeout
-      }, 2000); // Simulate loading for 2000ms
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setPaginationLoading(true);
-      setTimeout(() => {
-        setCurrentPage(currentPage - 1);
-        setPaginationLoading(false); // Stop loading after timeout
-      }, 2000); // Simulate loading for 2000ms
+      setCurrentPage(currentPage + 1);
     }
   };
   
-
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   return (
     <>
       <div className="flex max-w-7xl mx-auto md:px-8 px-1">
@@ -178,8 +169,8 @@ export function Talents() {
         <div className="w-full md:w-4/5 md:p-4 px-1 pd-28  justify-center items-center" >
           <div className="flex justify-between p-4 md:p-0" >
             <h2 className="font-bold text-4xl hidden md:block ">Talents</h2>
-            <h2 className="font-bold text-lg md:hidden mb-4">Featured Talent</h2>
-            <button onClick={() => navigate("/users")} className="md:inline-flex block h-8md:h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] hover:bg-[length:100%_100%]">
+            <h2 className="font-italic text-xl md:hidden mb-2">Featured Talent</h2>
+            <button onClick={() => navigate("/users")} className="md:inline-flex block h-10 md:h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] md:px-6 px-4 font-medium text-slate-100/90 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 hover:bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] hover:bg-[length:100%_100%]">
         View All Users &rarr;
       </button>
           </div>

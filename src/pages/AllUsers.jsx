@@ -14,7 +14,7 @@ document.title = 'All Users';
 
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch users from API when component mounts
@@ -54,7 +54,7 @@ document.title = 'All Users';
       ) : (
         <>
           {/* Bento Grid for Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-4 md:max-w-7xl md:mx-auto mx-3">
             {displayItems.map((user, index) => (
               <motion.div
                 className="group relative overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
@@ -64,7 +64,7 @@ document.title = 'All Users';
                 transition={{ duration: 0.5, delay: index * 0.05 }}
               >
                 <Link to={`/${user.id}`} className="block">
-                  <div className="relative p-6">
+                  <div className="relative md:p-6 py-3">
                     {/* Decorative Elements */}
                     <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl transform group-hover:scale-150 transition-transform duration-500"></div>
                     

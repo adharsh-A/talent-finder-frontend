@@ -116,9 +116,9 @@ export function Login() {
         )
 
         if (result.role === "talent") {
-          navigate(isRegister ? "/talent-data" : "/");
+          navigate(isRegister ? "/talent-data" :navigate(-1));
         } else {
-          navigate(isRegister ? "/client-data" : "/");
+          navigate(isRegister ? "/client-data" : navigate(-1));
         }
       } catch (err) {
         window.scrollTo({ top: 0, behavior: "smooth" });
