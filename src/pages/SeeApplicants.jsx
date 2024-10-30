@@ -88,29 +88,30 @@ const SeeApplicants = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto mt-16">
+    <div className="min-h-screen bg-transparent py-8 px-4 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto md:mt-16 lg:mt-20 mt-[2rem]">
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-2">
+       
+          <h1 className="md:text-3xl  text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-2">
             Talent Applications
           </h1>
-          <p className="text-gray-400 text-base sm:text-lg">
+          <p className="text-gray-400 text-sm sm:text-lg">
             {applicants.length} candidate{applicants.length !== 1 ? "s" : ""}{" "}
             awaiting your review
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid md:gap-6 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:mx-16">
           {applicants.map((applicant) => (
             <div
               key={applicant.id}
-              className={`bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all p-4 sm:p-6 border border-gray-700 
+              className={`bg-gray-800 md:rounded-lg rounded-md shadow-md hover:shadow-lg transition-all md:p-4 p-3 border border-gray-700 
               `}
               onClick={() => setSelectedApplicant(applicant)}
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between md:mb-2 mb-2">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-700 flex items-center justify-center ring-2 ring-gray-600">
+                  <div className="md:w-12 md:h-12 w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center ring-2 ring-gray-600">
                     {applicant.user.image ? (
                       <img
                         src={applicant.user.image}
@@ -124,10 +125,10 @@ const SeeApplicants = () => {
                     )}
                   </div>
                   <div>
-                    <h2 className="text-lg sm:text-xl font-semibold text-white">
+                    <h2 className="text-base sm:text-xl font-semibold text-white">
                       {applicant.user.name}
                     </h2>
-                    <p className="text-gray-400 text-sm sm:text-base">
+                    <p className="text-gray-400 text-xs sm:text-base">
                       @{applicant.user.username}
                     </p>
                   </div>
@@ -166,14 +167,14 @@ const SeeApplicants = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-medium text-gray-300 mb-1 sm:mb-2">
+                  <h4 className="font-medium text-gray-300 mb-1 md:text-base text-sm  sm:mb-2">
                     Skills
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 md:gap-2">
                     {applicant.user.data.skills.split(",").map((skill) => (
                       <span
                         key={skill}
-                        className="bg-blue-900/30 text-blue-200 border border-blue-700/50 rounded-full px-3 py-1 text-xs sm:text-sm"
+                        className="bg-blue-900/30 text-blue-200 border border-blue-700/50 rounded-full md:px-3 md:py-1 px-2 py-1  text-xs sm:text-sm"
                       >
                         {skill.trim()}
                       </span>
@@ -182,7 +183,7 @@ const SeeApplicants = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-medium text-gray-300 mb-1 sm:mb-0">
+                  <h4 className="font-medium text-sm md:text-base text-gray-300 mb-1 sm:mb-0">
                     Experience
                   </h4>
                   <p className="text-gray-400 text-sm sm:text-base">
@@ -195,7 +196,7 @@ const SeeApplicants = () => {
                     href={applicant.user.data.portfolio}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
+                    className="flex items-center md:space-x-2 space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
                   >
                     <svg
                       className="w-5 h-5"
@@ -214,7 +215,7 @@ const SeeApplicants = () => {
                   </a>
                 )}
 
-                <div className="pt-4 border-t border-gray-700 mt-4 space-y-3">
+                <div className="md:pt-4 pt-2 border-t border-gray-700 mt-4 space-y-3">
                   {applicant.status === "pending" && (
                     <div className="flex space-x-2">
                       <button
@@ -222,7 +223,7 @@ const SeeApplicants = () => {
                           e.stopPropagation();
                           handleStatusChange(applicant.id, "accepted");
                         }}
-                        className="w-full text-center bg-green-600 hover:bg-green-500 text-white rounded-md px-3 py-2 text-sm sm:text-base transition-all"
+                        className="w-full text-center bg-green-700/30 border border-green-700 hover:bg-green-500/50 text-white rounded-md md:px-3 md:py-2 px-2 py-1 text-base md:text-lg transition-all"
                       >
                         Accept
                       </button>
@@ -231,7 +232,7 @@ const SeeApplicants = () => {
                           e.stopPropagation();
                           handleStatusChange(applicant.id, "rejected");
                         }}
-                        className="w-full text-center bg-red-600 hover:bg-red-500 text-white rounded-md px-3 py-2 text-sm sm:text-base transition-all"
+                        className="w-full text-center bg-red-600/30 border border-red-600 text-red-100 hover:bg-red-500/50 text-white rounded-md md:px-3 md:py-2 px-2 py-1 text-base md:text-lg transition-all"
                       >
                         Reject
                       </button>
@@ -263,15 +264,15 @@ const SeeApplicants = () => {
                       </button>
                     </div>
                   )}
-                  <div className="md:flex space-x-2 block space-y-2">
+                  <div className="md:flex flex flex col-gap-2 space-x-2 block space-y-0">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/${applicant.user.id}`)
                       }}
-                      className="md:w-2/5 w-full text-center flex items-center  bg-gray-600 hover:bg-gray-500 text-white rounded-md px-3 py-2 text-sm sm:text-base transition-all"
+                      className="md:w-2/5 w-full text-center flex items-center justify-center bg-gray-600 hover:bg-gray-500 text-white rounded-md px-1 py-0 text-sm md:text-base transition-all"
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" />
+                      <ExternalLink className="w-3 h-3 mr-1" />
                       View Profile
                     </button>
                     <button

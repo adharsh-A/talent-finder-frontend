@@ -126,10 +126,10 @@ const fetchJobs = useCallback(async () => {
 
   return (
     <div className="tracking-wide md:pt-28 pt-20  min-h-screen w-full bg-slate-950 text-center text-slate-50 md:py-8 py-0 flex flex-wrap justify-center">
-      <h1 className="text-right md:ml-0 mr-5 md:text-center text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600   font-bold md:text-4xl md:mb-8 mb-2 w-full ">Job Search</h1>
+      <h1 className="text-center md:ml-0 mx-auto md:text-center text-4xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600   font-bold md:text-4xl md:mb-8 mb-2 w-full ">Job Search</h1>
       
       {/* Filter Section */}
-      <div className="md:mb-8 mb-3 w-full flex  flex-col md:flex-row md:justify-center  items-end md:items-center gap-4 mr-5 md:ml-0">
+      <div className="md:mb-8 mb-3 w-full flex  flex-col md:flex-row md:justify-center  items-center md:items-center gap-4 mr-5 ">
         <input
           type="text"
           name="experience"

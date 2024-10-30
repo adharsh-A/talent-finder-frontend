@@ -11,9 +11,7 @@ import Loader from "../components/ui/Loader.jsx";
 
 const ClientProfile = () => {
   const id = useSelector((state) => state.auth.id).toString() || "";
-  console.log(id);
   const { data: clientData, isLoading: isClientLoading } = useGetClientQuery(Number(id));
-  console.log('clientData:', clientData);
 
   const [updateClient, { isLoading }] = useUpdateClientMutation();
 
@@ -31,7 +29,6 @@ const ClientProfile = () => {
   // Update form data when clientData is fetched
   useEffect(() => {
     if (clientData) {
-      console.log('Client data fetched:', clientData);
       if (clientData.data!== null) {
         setFormData({
           userId: Number(id),
@@ -62,7 +59,6 @@ const ClientProfile = () => {
 
     try {
       const response = await updateClient(formData).unwrap();
-      console.log("Update response:", response);
 
       toast.success("Profile saved successfully!");
     } catch (error) {
@@ -78,10 +74,12 @@ const ClientProfile = () => {
           <Loader />
         ) : clientData? (
           clientData.data!== null? (
-            <div className="overflow-hidden relative z-10 bg-zinc-900/[0.7] w-full mt-[6rem] py-8 px-12 rounded-2xl lg:w-3/4 h-fit md:w-1/4">
+              <div className="overflow-hidden relative z-10 md:bg-zinc-900/[0.7] bg-transparent md:w-1/2  w-full md:mt-[6rem] mt-[2rem] py-8 px-12 rounded-2xl  h-fit ">
+                <div className="md:block hidden">
               <BorderBeam size={200} duration={8} delay={1} />
-              <h1 className="text-3xl font-bold mb-6 text-center text-slate-50">My Profile</h1>
-              <div className="flex justify-center mb-4">
+                </div>
+              <h1 className="md:text-3xl text-xl font-bold md:mb-6 mb-2 text-center text-slate-50">My Profile</h1>
+              <div className="flex justify-center md:mb-4 mb-2">
                 <div className="w-24 h-24 rounded-full overflow-hidden">
                   <img
                     src="https://tabler.io/_next/image?url=%2Favatars%2Fdefault%2F78529e2ec8eb4a2eb2fb961e04915b0a.png&w=400&q=75"
@@ -183,7 +181,7 @@ const ClientProfile = () => {
             <p className="text-white">Profile data not available</p>
           )
         ) : (
-          <p className="text-white">Loading...</p>
+          <Loader />
         )}
         <BackgroundBeams size={1} duration={15} />
       </div>

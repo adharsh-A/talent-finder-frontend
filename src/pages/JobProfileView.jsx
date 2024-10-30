@@ -5,8 +5,8 @@ import NotFound from "./NotFound";
 import "./JobProfileView.css";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
+import { toast } from "sonner";
 
 const JobDetail = () => {
   // Scroll to the top on component mount
@@ -14,7 +14,6 @@ const JobDetail = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const { toast } = useToast();
   const { id } = useParams(); // Get the job ID from the route parameters
   const userId = useSelector((state) => state.auth.id); // Get user ID from Redux store
   const role = useSelector((state) => state.auth.role);
@@ -78,23 +77,13 @@ const JobDetail = () => {
       );
 
       if (response.status === 201) {
-        toast({
-          title: "Applied successfully",
-          description: "You have successfully applied for this job.",
-          status: "success",
-          duration: 5000,
-        });
+        toast.success("Applied successfully");
         setAppliedSuccessfully(true);
       }
-        console.log(error);
       
     } catch (error) {
-      toast({
-        title: error?.response?.data?.message || "Error",
-        description: "An error occurred while applying for this job.",
-        status: "error",
-        duration: 5000,
-      });
+      console.log(error);
+      toast.error(error.response?.data?.message || "Error applying to the job, please try again");
     } finally {
       setIsApplying(false);
     }
@@ -139,7 +128,8 @@ const JobDetail = () => {
             <h2>{job.title}</h2>
             <h4>{job.location}</h4>
             <p>Salary: ${job.salary}</p>
-          </div>
+            </div>
+            <div className="md:border-0 border-r border-gray-300/30 pr-4"></div>
           <div>
             <h2>{job.client?.data?.clientCompany}</h2>
             <h4>Email: {job.client?.data?.clientContactEmail}</h4>

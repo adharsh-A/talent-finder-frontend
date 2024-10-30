@@ -48,27 +48,27 @@ const ViewJobsPosted = () => {
   };
   return (
     <div className="min-h-screen bg-zinc-950 p-6">
-      {isLoading ? <Loader /> : <div className="max-w-7xl mx-auto mt-28">
-        <h1 className="text-3xl font-bold text-white mb-8">Posted Jobs</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {isLoading ? <Loader /> : <div className="max-w-7xl md:mx-24 md:mt-28 mt-[3.5rem]">
+        <h1 className="md:text-3xl text-2xl  font-bold text-white mb-8">Posted Jobs</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6  gap-4">
           {jobsPosted.map((job) => (
             <div
               key={job.id}
               className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden hover:border-zinc-700 transition-all"
             >
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-xl font-bold text-white">
+              <div className="md:p-4 p-3">
+                <div className="flex md:flex-row gap-2 flex-col justify-between items-start md:mb-4 mb-2">
+                  <h2 className=" md:text-xl text-lg font-bold text-white">
                     {job.title}
                   </h2>
                   {job.isRemote && (
-                    <span className="px-2 py-1 text-sm rounded-full bg-emerald-500/10 text-emerald-500">
+                    <span className="md:px-2 md:py-1 px-2 py-1 md:text-sm  text-xs rounded-full bg-emerald-500/10 text-emerald-500">
                       Remote
                     </span>
                   )}
                 </div>
                 
-                <div className="space-y-4">
+                <div className="md:space-y-2 space-y-1 md:text-sm text-xs">
                   <div className="flex items-center gap-2 text-zinc-400">
                     <Briefcase className="w-4 h-4" />
                     <span>Experience: {job.data.experience}</span>
@@ -92,7 +92,7 @@ const ViewJobsPosted = () => {
                       {job.data.skills.split(', ').map((skill) => (
                         <span
                           key={skill}
-                          className="px-2 py-1 text-sm rounded-md bg-zinc-800 text-zinc-300 border border-zinc-700"
+                          className="md:px-2 md:py-1 px-2 py-1 md:text-sm text-xs rounded-md bg-zinc-800 text-zinc-300 border border-zinc-700"
                         >
                           {skill}
                         </span>
@@ -100,7 +100,7 @@ const ViewJobsPosted = () => {
                     </div>
                   </div>
                   
-                  <p className="text-zinc-400 mt-4">{job.description}</p>
+                  <p className="text-zinc-400 md:mt-2 mt-1">{job.description}</p>
                   <div className="flex gap-2">
                               
                     <button className="w-1/4 mt-4 flex items-center justify-center gap-2 bg-zinc-600 hover:bg-zinc-700 hover:border-white-700 text-white py-2 px-4 rounded-md transition-colors">

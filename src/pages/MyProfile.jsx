@@ -183,13 +183,16 @@ const MyProfile = (props) => {
       {isLoading || isUpdating ? (
         <Loader />
       ) : (
-        <div className="min-h-screen flex justify-center items-center">
-          <div className="overflow-hidden relative  z-10 bg-zinc-900/[0.7]  w-full mt-[6rem] py-8 px-12 rounded-2xl lg:w-3/4 h-fit md:w-1/4">
-            <BorderBeam size={200} duration={8} delay={1} />
-            <h1 className="text-3xl font-bold mb-6 text-center text-slate-50">
+        <div className="min-h-screen flex md:justify-center justify-center md:items-center items-start">
+          <div className="overflow-hidden relative  z-10 md:bg-zinc-900/[0.7] bg:transparent w-full md:mt-[6rem] mt-[2rem] py-8 md:px-12 px-5 rounded-2xl lg:w-3/4 h-fit md:w-[70%]">
+              <div className="md:block hidden">
+
+              <BorderBeam size={200} duration={8} delay={1} />
+              </div>
+            <h1 className="md:text-3xl text-xl font-bold md:mb-6 mb-2 text-center text-slate-50">
               My Profile
             </h1>
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center md:mb-4 mb-0">
               <div className="w-24 h-24 rounded-full overflow-hidden">
                 <img
                   src="https://tabler.io/_next/image?url=%2Favatars%2Fdefault%2F78529e2ec8eb4a2eb2fb961e04915b0a.png&w=400&q=75"
@@ -199,8 +202,8 @@ const MyProfile = (props) => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <Label htmlFor="name">Name</Label>
+            <form onSubmit={handleSubmit} className="md:space-y-2 space-y-0">
+              <Label htmlFor="name" className="text-xs md:text-base">Name</Label>
               <Input
                 label="Name"
                 id="name"
@@ -208,7 +211,7 @@ const MyProfile = (props) => {
                 onChange={handleChange}
                 placeholder="Enter your name"
               />
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username" className="text-xs md:text-base">Username</Label>
               <Input
                 label="Username"
                 id="username"
@@ -216,7 +219,7 @@ const MyProfile = (props) => {
                 onChange={handleChange}
                 placeholder="Enter your username"
               />
-              <Label htmlFor="skills">Skills</Label>
+              <Label htmlFor="skills" className="text-xs md:text-base">Skills</Label>
               <Input
                 label="Skills"
                 id="skills"
@@ -226,7 +229,7 @@ const MyProfile = (props) => {
                 />
                 
                 
-              <Label htmlFor="occupation">Occupation</Label>
+              <Label htmlFor="occupation" className="text-xs md:text-base">Occupation</Label>
               <select
                 id="occupation"
                 value={formData.occupation}
@@ -242,7 +245,7 @@ const MyProfile = (props) => {
               </select>
 
 
-              <Label htmlFor="experience">Experience</Label>
+              <Label htmlFor="experience" className="text-xs md:text-base">Experience</Label>
               <Input
                 label="Experience"
                 id="experience"
@@ -251,7 +254,7 @@ const MyProfile = (props) => {
                 placeholder="Enter your experience"
               />
 
-              <Label htmlFor="additionalInfo">Additional Info</Label>
+              <Label htmlFor="additionalInfo" className="text-xs md:text-base">Additional Info</Label>
               <Input
                 label="Additional Info"
                 id="additionalInfo"
@@ -260,13 +263,14 @@ const MyProfile = (props) => {
                 placeholder="Enter additional information"
               />
 
-              <Label htmlFor="portfolio">Portfolio</Label>
+              <Label htmlFor="portfolio" className="text-xs md:text-base">Portfolio</Label>
               <Input
                 label="Portfolio"
                 id="portfolio"
                 value={formData.portfolio}
                 onChange={handleChange}
-                placeholder="Enter your portfolio link"
+                  placeholder="Enter your portfolio link"
+                  className="md:2"
               />
 
               <div className="flex justify-end mt-4">

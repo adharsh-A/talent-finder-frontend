@@ -91,19 +91,23 @@ const ApplicationsPage = () => {
 
   return (
     <div className="flex justify-center min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
+      <div className="md:block hidden">
+
       <BackgroundBeams />
+      </div>
+
       <div className="w-full max-w-5xl mx-auto p-6 relative mt-20">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
+          <h1 className="md:text-3xl text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
             Your Applications
           </h1>
-          <span className="px-4 py-2 rounded-full bg-white/10 text-sm">
+          <span className="md:px-4 md:py-2 px-3 py-1 rounded-full bg-white/10 md:text-sm text-xs">
             Total: {applications.length}
           </span>
         </div>
 
         {applications.length === 0 ? (
-          <div className="text-center py-20 bg-white/5 rounded-lg border border-white/10">
+          <div className="text-center md:py-20 p-6  bg-white/5 rounded-lg border border-white/10">
             <Briefcase className="mx-auto h-12 w-12 text-gray-400 mb-4" />
             <button onClick={() => window.history.back()} className="absolute top-6 right-6 text-gray-400 hover:text-white transition-all">
               <ArrowUpFromLine className="h-6 w-6" />
@@ -117,16 +121,16 @@ const ApplicationsPage = () => {
             {applications.map((application) => (
               <div
                 key={application.id}
-                className="group relative bg-white/5 rounded-xl border border-white/10 p-6 hover:bg-white/[0.07] transition-all"
+                className="group relative bg-white/5 rounded-xl border border-white/10 md:p-10 p-3  hover:bg-white/[0.07] transition-all"
               >
                 <Link to={`/jobs/${application.job.id}`} className="block">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-3">
-                      <h2 className="text-xl font-semibold text-white">
+                    <div className="md:space-y-3 space-y-1">
+                      <h2 className="md:text-xl text-lg font-semibold text-white">
                         {application.job.title}
                       </h2>
 
-                      <div className="flex flex-wrap gap-3">
+                      <div className="flex flex-wrap md:gap-3 gap-1 ">
                         <div className="flex items-center text-gray-400">
                           <Building2 className="h-4 w-4 mr-2" />
                           <span>{application.job.company}</span>
@@ -149,7 +153,7 @@ const ApplicationsPage = () => {
 
                     <div className="flex flex-col md:items-end gap-3">
                       <div
-                        className={`px-4 py-1.5 rounded-full border ${getStatusColor(
+                        className={`md:px-4 md:py-1.5 px-3.5 py-1 rounded-full border ${getStatusColor(
                           application.status
                         )} text-sm font-medium`}
                       >
@@ -174,19 +178,19 @@ const ApplicationsPage = () => {
                 </Link>
 
                 {showDeleteDialog && deletingId === application.id && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-zinc-900 rounded-lg p-6 max-w-md w-full space-y-4">
-                      <h2 className="text-lg font-semibold">Delete Application</h2>
-                      <p>Are you sure you want to delete this application? This action cannot be undone.</p>
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+                    <div className="bg-zinc-900 rounded-lg p-6 max-w-md md:w-full w-[90%] md:space-y-4 space-y-2">
+                      <h2 className="sm:text-lg text-base font-semibold">Delete Application</h2>
+                      <p className="tracking-wide text-xs md:text-base text-gray-400" >Are you sure you want to delete this application? This action cannot be undone.</p>
                       <div className="flex justify-end gap-4">
                         <button
-                          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                          className="md:px-4 md:py-2 px-2 py-1 md:text-base text-sm bg-gray-800/50 border border-gray-400/50 rounded hover:bg-gray-400"
                           onClick={() => setShowDeleteDialog(false)}
                         >
                           Cancel
                         </button>
                         <button
-                          className=" px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                          className=" md:px-4 md:py-2 px-2 py-1 md:text-base text-sm bg-red-500 text-white rounded hover:bg-red-600"
                           onClick={handleDelete}
                         >
                           Delete
