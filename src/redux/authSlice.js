@@ -51,9 +51,12 @@ export const authSlice = createSlice({
       state.id = null;
       state.role = null;
       state.isAuthenticated = false;
+      state.loginTime = null;
 
       // Remove token from localStorage
       localStorage.clear();
+      //clear cookies
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     },
   },
 });

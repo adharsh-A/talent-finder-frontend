@@ -1,0 +1,49 @@
+/* CustomSwitch.css */
+.custom-switch {
+    width: 25px; /* Updated Width */
+    height: 16px; /* Updated Height */
+    background-color: #444; /* Dark background color when off */
+    border-radius: 8px; /* Adjusted rounded corners */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .custom-switch.checked {
+    background-color: #4caf50; /* Green background color when on */
+  }
+  
+  .slider {
+    width: 12px; /* Smaller Width of the slider */
+    height: 12px; /* Smaller Height of the slider */
+    background-color: #fff; /* Slider color */
+    border-radius: 50%; /* Round slider */
+    position: absolute;
+    top: 2px; /* Center the slider vertically */
+    left: 2px; /* Center the slider horizontally */
+    transition: transform 0.2s;
+  }
+  
+  .custom-switch.checked .slider {
+    transform: translateX(13px); /* Adjusted translate for the new size */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+    .custom-switch {
+      width: 20px; /* Even smaller width for mobile devices */
+      height: 14px; /* Even smaller height for mobile devices */
+    }
+  
+    .custom-switch.checked .slider {
+      transform: translateX(10px); /* Adjust translate for smaller switch */
+    }
+    
+    .slider {
+      width: 10px; /* Smaller Width of the slider on mobile */
+      height: 10px; /* Smaller Height of the slider on mobile */
+      top: 2px; /* Center the slider vertically */
+      left: 2px; /* Center the slider horizontally */
+    }
+  }
+  

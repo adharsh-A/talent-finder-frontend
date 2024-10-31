@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authenticationApi } from "./authentication.js";
+import { authenticationApi } from "./authenticationApi.js";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authSlice } from "./authSlice.js";
 import { jobApi } from "./jobApi.js";

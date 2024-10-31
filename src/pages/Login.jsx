@@ -1,16 +1,18 @@
 import React, { useState, useEffect, act } from "react";
 import { Label } from "../components/ui/label";
 
-
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
-import { useLoginMutation, useRegisterMutation } from "../redux/authentication";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../redux/authenticationApi";
 import { setCredentials } from "@/redux/authSlice";
 import { useDispatch } from "react-redux";
 import "./Login.css";
-import {toast} from "sonner"
+import { toast } from "sonner";
 import { occupations } from "./UserDetails";
 
 export function Login() {
@@ -109,14 +111,12 @@ export function Login() {
           })
         );
 
-        toast(
-          `hello ${result.username}`, {
-            description: `Date: ${new Date()}`,
-          }
-        )
+        toast(`hello ${result.username}`, {
+          description: `Date: ${new Date()}`,
+        });
 
         if (result.role === "talent") {
-          navigate(isRegister ? "/talent-data" :navigate(-1));
+          navigate(isRegister ? "/talent-data" : navigate(-1));
         } else {
           navigate(isRegister ? "/client-data" : navigate(-1));
         }
@@ -140,13 +140,15 @@ export function Login() {
     setIsRegister((prev) => !prev);
     setErrors({});
     window.scrollTo({ top: 0, behavior: "smooth" });
-
   };
-  
 
   return (
     <>
-      <div className={` mt-28 ${isRegister ? "md:max-w-3xl" : "md:max-w-2xl"}  md:w-full md:mx-auto mx-4 md:border-[2px]  md:rounded-2xl p-4 md:p-8 shadow-2xl  md:dark:bg-zinc-950 md:border-zinc-700/80 md:border-2 transition duration-300 animate ease-in-out`}>
+      <div
+        className={` mt-28 ${
+          isRegister ? "md:max-w-3xl" : "md:max-w-2xl"
+        }  md:w-full md:mx-auto mx-4 md:border-[2px]  md:rounded-2xl p-4 md:p-8 shadow-2xl  md:dark:bg-zinc-950 md:border-zinc-700/80 md:border-2 transition duration-300 animate ease-in-out`}
+      >
         <h2 className="font-bold text-2xl md:text-3xl text-white dark:text-neutral-200">
           {isRegister ? "Register" : "Login"}
         </h2>
@@ -187,7 +189,7 @@ export function Login() {
                   value={formData.lastname}
                   onChange={handleInputChange}
                   className={errors.lastname && "border-red-500"}
-                  />
+                />
                 {errors.lastname && (
                   <p className="text-red-500">{errors.lastname}</p>
                 )}
@@ -288,9 +290,11 @@ export function Login() {
           )}
 
           <button
-            className={`login-button px-4 py-2 rounded-md ${isLoggingIn || isRegistering ? "bg-neutral-300/50 cursor-progress text-black border border-white/10" : ""} ${
-              isLoggingIn || isRegistering ? "disabled" : ""
-            }`}
+            className={`login-button px-4 py-2 rounded-md ${
+              isLoggingIn || isRegistering
+                ? "bg-neutral-300/50 cursor-progress text-black border border-white/10"
+                : ""
+            } ${isLoggingIn || isRegistering ? "disabled" : ""}`}
             type="submit"
             disabled={isLoggingIn || isRegistering}
           >

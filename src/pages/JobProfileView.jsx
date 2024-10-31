@@ -146,7 +146,7 @@ const JobDetail = () => {
         <div className="skills-section">
           <strong>Skills Required:</strong>
           <div className="skills-list">
-            {job.data?.skills.split(", ").map((skill, index) => (
+            {job.data?.skills.split(",").map((skill, index) => (
               <span key={index} className="skill-item">
                 {skill}
               </span>
