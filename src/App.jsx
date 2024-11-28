@@ -24,16 +24,15 @@ import ApplicationsPage from "./pages/ApplicationsPage.jsx";
 import ViewJobsPosted from "./pages/ViewJobsPosted.jsx";
 import SeeApplicants from "./pages/SeeApplicants.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { Toaster} from 'sonner'
-
-
-
+import { Toaster } from 'sonner'
+import { SocketProvider } from "./context/socketContext.jsx";
 
 const App = () => {
   const role = useSelector((state) => state.auth.role) || "talent";
 
   return (
     <>
+      <SocketProvider />
       <Router>
         <Navigation />
         <ErrorBoundary>
@@ -66,7 +65,8 @@ const App = () => {
       <Footer />
       
       <ToastContainer />
-      <Toaster richColors position="bottom-right"/>
+      <Toaster richColors position="bottom-right" />
+      <SocketProvider />
     </>
   );
 };

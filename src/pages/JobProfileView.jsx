@@ -77,7 +77,7 @@ const JobDetail = () => {
       );
 
       if (response.status === 201) {
-        toast.success("Applied successfully");
+        // toast.success("Applied successfully");
         setAppliedSuccessfully(true);
       }
       

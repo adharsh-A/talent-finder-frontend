@@ -7,10 +7,8 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { StyledEngineProvider } from '@mui/material/styles';
-import {logout}
 
-
-import "./global.css";
+import  "./global.css";
 const theme = createTheme({
   palette: {
     primary: {

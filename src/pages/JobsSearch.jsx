@@ -101,7 +101,6 @@ const fetchJobs = useCallback(async () => {
     [totalPages]
   );
 
-  if (isLoading) return <Loader />;
   if (isError) return <NotFound />;
   if (!Array.isArray(filteredJobs) || filteredJobs.length === 0) {
     return (
