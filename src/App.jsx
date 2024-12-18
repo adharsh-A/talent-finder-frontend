@@ -29,6 +29,27 @@ import { SocketProvider } from "./context/socketContext.jsx";
 
 const App = () => {
   const role = useSelector((state) => state.auth.role) || "talent";
+  //server restart
+  useEffect(() => {
+    const hasToastBeenShown = localStorage.getItem('serverRestartToastShown');
+    
+    if (!hasToastBeenShown) {
+      fetch("https://talent-finder-backend.onrender.com/api/users")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Server not responding');
+        }
+      })
+      .catch(error => {
+        console.error('Failed to wake up server:', error);
+      });      toast.message('Server Restarting', {
+        description: 'if content does not load, wait 59 seconds for server to restart',
+      })
+      
+      // Mark that toast has been shown
+      localStorage.setItem('serverRestartToastShown', 'true');
+    }
+  }, []);
 
   return (
     <>
