@@ -53,4 +53,4 @@ This project is licensed under the MIT License.
 
 ## Authors
 
-* [Your Name](https://github.com/adharsh-a)
+* [Adharsh](https://github.com/adharsh-a)
