@@ -6,6 +6,8 @@ import Navigation from "./components/Navigation.jsx";
 import Footer from "./components/Footer.jsx";
 import ErrorBoundary from "./utils/ErrorBoundary.jsx";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 
 // Lazy load all page components
 //removed lazy 
@@ -27,6 +29,7 @@ import SeeApplicants from "./pages/SeeApplicants.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { Toaster } from 'sonner'
 import { SocketProvider } from "./context/socketContext.jsx";
+
 
 const App = () => {
   const role = useSelector((state) => state.auth.role) || "talent";
