@@ -46,9 +46,7 @@ const App = () => {
       })
       .catch(error => {
         console.error('Failed to wake up server:', error);
-      });      toast.message('Server Restarting', {
-        description: 'if content does not load, wait 59 seconds for server to restart',
-      })
+      });      toast("Server Restarting,wait a moment")
       
       // Mark that toast has been shown
       localStorage.setItem('serverRestartToastShown', 'true');
